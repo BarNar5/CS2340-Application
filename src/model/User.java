@@ -29,6 +29,34 @@ public class User {
         this("enter username", "enter password");
     }
 
+    @Override
+    public boolean equals(Object that) {
+        if (that == null) {
+            return false;
+        }
+        if (that == this) {
+            return true;
+        }
+        if (!(that instanceof User)) {
+            return false;
+        }
+        User user = (User) that;
+        return name.equals(user.getName()) && password.equals(user.getPassword());
+    }
+
+    public boolean equalName(Object that) {
+        if (that == null) {
+            return false;
+        }
+        if (that == this) {
+            return true;
+        }
+        if (!(that instanceof User)) {
+            return false;
+        }
+        User user = (User) that;
+        return name.equals(user.getName());
+    }
 
     public String toString() {
         return name + " " + password;

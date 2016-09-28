@@ -1,8 +1,12 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Model;
 import model.User;
 
 
@@ -13,7 +17,10 @@ public class UserRegisterController {
     private TextField nameField;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
+
+    @FXML
+    private GridPane gridPane;
 
     private Stage dialogStage;
 
@@ -28,6 +35,8 @@ public class UserRegisterController {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+
+        dialogStage.requestFocus();
     }
 
 
@@ -36,10 +45,15 @@ public class UserRegisterController {
 
         if (user == null) System.out.println("User was null in login!");
 
-
+        /*
         nameField.setText(user.getName());
         passwordField.setText(user.getPassword());
+        */
 
+        nameField.setPromptText(user.getName());
+        passwordField.setPromptText(user.getPassword());
+
+        gridPane.requestFocus();
     }
 
     /**
@@ -51,22 +65,28 @@ public class UserRegisterController {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     */
-    @FXML
-    private void handleOKPressed() {
 
-        if (isInputValid()) {
+    @FXML
+    private void handleSubmitPressed() {
+
+        if (isInputValid(nameField.getText(), passwordField.getText())) {
 
             user.setName(nameField.getText());
             user.setPassword(passwordField.getText());
-
+            Model.getInstance().addUser(user);
 
             okClicked = true;
             dialogStage.close();
+
         } else {
-            //TODO: username already in use
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Registration");
+            alert.setHeaderText("User with this username already exists");
+            alert.setContentText("Please enter different username");
+
+            alert.showAndWait();
         }
     }
 
@@ -76,8 +96,14 @@ public class UserRegisterController {
     }
 
 
-    private boolean isInputValid() {
-        //TODO: cannot be the same username
+    private boolean isInputValid(String name, String password) {
+
+        User tempUser = new User(name, password);
+        for (User user : Model.getInstance().getUsers()) {
+            if (user.equalName(tempUser)) {
+                return false;
+            }
+        }
         return true;
     }
 

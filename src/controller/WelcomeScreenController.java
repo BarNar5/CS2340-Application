@@ -1,7 +1,8 @@
 package controller;
 
-import fxapp.MainApplication;
 import javafx.fxml.FXML;
+import fxapp.MainApplication;
+
 import model.User;
 import model.Model;
 
@@ -19,11 +20,8 @@ public class WelcomeScreenController {
 
 
     public void setMainApp(MainApplication mainApplication) {
-
         this.mainApplication = mainApplication;
-
     }
-
 
     @FXML
     public void loginPressed() {
@@ -31,7 +29,7 @@ public class WelcomeScreenController {
         User tempUser = new User();
         boolean okClicked = mainApplication.showLoginDialog(tempUser);
         if (okClicked) {
-            Model.getInstance().setLoggedUser(tempUser);
+            //Model.getInstance().setLoggedUser(tempUser);
             mainApplication.showApplicationScreen();
         }
 

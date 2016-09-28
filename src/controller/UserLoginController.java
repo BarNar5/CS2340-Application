@@ -1,8 +1,12 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Model;
 import model.User;
 
 
@@ -13,7 +17,10 @@ public class UserLoginController {
     private TextField nameField;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
+
+    @FXML
+    private GridPane gridPane;
 
     private Stage dialogStage;
 
@@ -36,9 +43,15 @@ public class UserLoginController {
 
         if (user == null) System.out.println("User was null in login!");
 
-
+        /*
         nameField.setText(user.getName());
         passwordField.setText(user.getPassword());
+        */
+
+        nameField.setPromptText(user.getName());
+        passwordField.setPromptText(user.getPassword());
+
+        gridPane.requestFocus();
 
     }
 
@@ -47,19 +60,23 @@ public class UserLoginController {
         return okClicked;
     }
 
+    @FXML
+    private void handleSubmitPressed() {
 
-    private void handleOKPressed() {
-
-        if (isInputValid()) {
-
-            user.setName(nameField.getText());
-            user.setPassword(passwordField.getText());
-
+        if (isInputValid(nameField.getText(), passwordField.getText())) {
 
             okClicked = true;
             dialogStage.close();
+
         } else {
-            //TODO: incorrect username or password
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Login");
+            alert.setHeaderText("Wrong username or password");
+            alert.setContentText("Please enter correct information");
+
+            alert.showAndWait();
         }
     }
 
@@ -69,13 +86,17 @@ public class UserLoginController {
     }
 
 
-    private boolean isInputValid() {
-        //TODO: must be one of registered users
-        /*
-        if user.equals(userFromUsers)
-            user = userFromUsers
-         */
-        return true;
+    private boolean isInputValid(String name, String password) {
+
+        User tempUser = new User(name, password);
+        for (User user : Model.getInstance().getUsers()) {
+            if (user.equals(tempUser)) {
+                this.user = user;
+                Model.getInstance().setLoggedUser(user);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

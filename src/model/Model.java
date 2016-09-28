@@ -26,6 +26,8 @@ public class Model {
 
     private Model () {
         users.add(new User("Bartek", "qwerty"));
+        users.add(new User("a", "a"));
+        users.add(new User("admin", "admin"));
     }
 
 
