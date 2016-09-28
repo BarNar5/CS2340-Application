@@ -66,7 +66,7 @@ public class UserRegisterController {
             okClicked = true;
             dialogStage.close();
         } else {
-            //TODO: incorrect username or password message
+            //TODO: username already in use
         }
     }
 

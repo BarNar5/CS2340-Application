@@ -29,8 +29,6 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) {
         mainScreen = primaryStage;
         initMainLayout(mainScreen);
-        //showWelcomeScreen();
-        //showLoginDialog(new User());
     }
 
     private void initMainLayout(Stage mainScreen) {
@@ -55,7 +53,7 @@ public class MainApplication extends Application {
         }
     }
 
-    public void showWelcomeScreen() {
+    public void showApplicationScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("../view/Application.fxml"));

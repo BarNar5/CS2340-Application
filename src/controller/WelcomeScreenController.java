@@ -32,7 +32,7 @@ public class WelcomeScreenController {
         boolean okClicked = mainApplication.showLoginDialog(tempUser);
         if (okClicked) {
             Model.getInstance().setLoggedUser(tempUser);
-            mainApplication.showWelcomeScreen();
+            mainApplication.showApplicationScreen();
         }
 
     }
@@ -44,6 +44,7 @@ public class WelcomeScreenController {
         boolean okClicked = mainApplication.showRegisterDialog(tempUser);
         if (okClicked) {
             Model.getInstance().addUser(tempUser);
+            //TODO: registration successful message
         }
 
     }

@@ -9,7 +9,9 @@ public class Model {
 
     private User loggedUser;
 
-    public static Model getInstance() { return instance; }
+    public static Model getInstance() {
+        return instance;
+    }
 
     public User getLoggedUser() {
         return loggedUser;
@@ -27,7 +29,9 @@ public class Model {
     }
 
 
-    public ObservableList<User> getUsers() { return users; }
+    public ObservableList<User> getUsers() {
+        return users;
+    }
 
 
     public boolean addUser(User user) {

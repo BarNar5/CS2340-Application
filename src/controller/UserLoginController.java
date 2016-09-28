@@ -58,6 +58,8 @@ public class UserLoginController {
 
             okClicked = true;
             dialogStage.close();
+        } else {
+            //TODO: incorrect username or password
         }
     }
 
@@ -69,6 +71,10 @@ public class UserLoginController {
 
     private boolean isInputValid() {
         //TODO: must be one of registered users
+        /*
+        if user.equals(userFromUsers)
+            user = userFromUsers
+         */
         return true;
     }
 
