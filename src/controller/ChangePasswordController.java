@@ -14,7 +14,9 @@ import model.AccountType;
 import model.Model;
 import model.User;
 
-
+/**
+* Controller class for changing the password
+*/
 public class ChangePasswordController {
 
 
@@ -33,16 +35,25 @@ public class ChangePasswordController {
 
     private boolean okClicked = false;
 
+    /**
+    * Initialize method for the change password controller class
+    */
     @FXML
     private void initialize() {
 
     }
-
+    /**
+    * Setter method for the dialogStage
+    * @param dialogStage the stage instance being passed in
+    */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-
+    /**
+    * Setter method for the user
+    * @param user the current user being passed in as a parameter
+    */
     public void setUser(User user) {
         this.user = user;
 
@@ -66,7 +77,9 @@ public class ChangePasswordController {
         return okClicked;
     }
 
-
+    /**
+    * Method to handle the input of the user when the submit button is pressed
+    */
     @FXML
     private void handleSubmitPressed() {
 
@@ -88,13 +101,20 @@ public class ChangePasswordController {
             alert.showAndWait();
         }
     }
-
+    /**
+    * Method to handle the cancel button being pressed
+    */
     @FXML
     private void handleCancelPressed() {
         dialogStage.close();
     }
 
-
+    /**
+    * Validation method for the user and password input
+    * @param name the username of the user
+    * @param password the user password
+    * @return the boolean value for the validity of the login information
+    */
     private boolean isInputValid(String name, String password) {
 
         User tempUser = new User(name, password);
