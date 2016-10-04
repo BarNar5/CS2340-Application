@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Model;
@@ -20,7 +21,7 @@ public class UserLoginController {
     private PasswordField passwordField;
 
     @FXML
-    private GridPane gridPane;
+    private AnchorPane anchorPane;
 
     private Stage dialogStage;
 
@@ -48,11 +49,13 @@ public class UserLoginController {
         passwordField.setText(user.getPassword());
         */
 
-        nameField.setPromptText(user.getName());
+        nameField.setPromptText(user.getUserName());
         passwordField.setPromptText(user.getPassword());
 
-        gridPane.requestFocus();
+    }
 
+    public void focus() {
+        anchorPane.requestFocus();
     }
 
 

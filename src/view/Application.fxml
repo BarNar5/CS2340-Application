@@ -2,16 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationController">
    <children>
-      <Text fx:id="welcomeMessage" layoutX="198.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" textOrigin="CENTER" wrappingWidth="205.0">
-         <font>
-            <Font name="Traditional Arabic" size="23.0" />
-         </font>
-      </Text>
       <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
+      <HBox fx:id="welcomeHBox" layoutX="93.0" layoutY="135.0" prefHeight="100.0" prefWidth="414.0">
+         <children>
+            <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" textOrigin="CENTER" wrappingWidth="205.0">
+               <font>
+                  <Font name="Traditional Arabic" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <Button layoutX="476.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleMyProfilePressed" text="My profile" />
    </children>
 </AnchorPane>

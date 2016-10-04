@@ -1,11 +1,16 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.AccountType;
 import model.Model;
 import model.User;
 
@@ -20,7 +25,10 @@ public class UserRegisterController {
     private PasswordField passwordField;
 
     @FXML
-    private GridPane gridPane;
+    private AnchorPane anchorPane;
+
+    @FXML
+    private ComboBox<String> accountTypeField = new ComboBox<>();
 
     private Stage dialogStage;
 
@@ -30,13 +38,21 @@ public class UserRegisterController {
 
     @FXML
     private void initialize() {
+        AccountType[] values = AccountType.values();
 
+        String[] types = new String[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            types[i] = values[i].toString();
+        }
+        ObservableList<String> options = FXCollections.observableArrayList(
+                types);
+
+        accountTypeField.getItems().addAll(options);
     }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-
-        dialogStage.requestFocus();
     }
 
 
@@ -45,15 +61,14 @@ public class UserRegisterController {
 
         if (user == null) System.out.println("User was null in login!");
 
-        /*
-        nameField.setText(user.getName());
-        passwordField.setText(user.getPassword());
-        */
-
-        nameField.setPromptText(user.getName());
+        nameField.setPromptText(user.getUserName());
         passwordField.setPromptText(user.getPassword());
+        accountTypeField.setValue(user.getAccountType().toString());
 
-        gridPane.requestFocus();
+    }
+
+    public void focus() {
+        anchorPane.requestFocus();
     }
 
     /**
@@ -71,8 +86,9 @@ public class UserRegisterController {
 
         if (isInputValid(nameField.getText(), passwordField.getText())) {
 
-            user.setName(nameField.getText());
+            user.setUserName(nameField.getText());
             user.setPassword(passwordField.getText());
+            user.setAccountType(AccountType.valueOf(accountTypeField.getValue()));
             Model.getInstance().addUser(user);
 
             okClicked = true;

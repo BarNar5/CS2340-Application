@@ -27,7 +27,18 @@ public class Model {
     private Model () {
         users.add(new User("Bartek", "qwerty"));
         users.add(new User("a", "a"));
-        users.add(new User("admin", "admin"));
+        User admin = new User("admin", "admin", AccountType.ADMIN);
+        admin.setName("Admin Adminowicz");
+        admin.setGender(Gender.Male);
+        admin.setDateDay("01");
+        admin.setDateMonth("01");
+        admin.setDateYear("1969");
+        admin.setPhoneNumber("7777777777");
+        admin.setEmail("admin@admin.com");
+        admin.setAddress1("Admin Bld 123");
+        admin.setAddress2("Georgia Tech Dr 69");
+        admin.setAddress3("Atlanta, GA 33333");
+        users.add(admin);
     }
 
 

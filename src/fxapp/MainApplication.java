@@ -1,6 +1,6 @@
 package fxapp;
 
-import controller.ApplicationController;
+import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,10 +11,6 @@ import javafx.stage.Stage;
 
 import model.Model;
 import model.User;
-
-import controller.UserLoginController;
-import controller.WelcomeScreenController;
-import controller.UserRegisterController;
 
 import java.io.IOException;
 
@@ -48,6 +44,8 @@ public class MainApplication extends Application {
             mainScreen.setScene(scene);
             mainScreen.show();
 
+            controller.focus();
+
 
         } catch (IOException e) {
             System.out.println("Failed to find the fxml file for MainScreen!!");
@@ -70,6 +68,8 @@ public class MainApplication extends Application {
             mainScreen.setScene(scene);
             mainScreen.show();
 
+            controller.focus();
+
         } catch (IOException e) {
             System.out.println("Failed to find the fxml file for WelcomeScreen!!");
         }
@@ -91,6 +91,8 @@ public class MainApplication extends Application {
             UserLoginController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setUser(user);
+
+            controller.focus();
 
 
             dialogStage.showAndWait();
@@ -121,6 +123,8 @@ public class MainApplication extends Application {
             controller.setDialogStage(dialogStage);
             controller.setUser(user);
 
+            controller.focus();
+
 
             dialogStage.showAndWait();
 
@@ -139,6 +143,54 @@ public class MainApplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void showProfileScreen() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/ProfileScreen.fxml"));
+            AnchorPane profileScreen = loader.load();
+
+            ProfileScreenController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            mainScreen.setTitle("Profile");
+
+            Scene scene = new Scene(profileScreen);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+            controller.focus();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showEditProfileScreen() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/EditProfileScreen.fxml"));
+            AnchorPane editProfile = loader.load();
+
+            EditProfileController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            mainScreen.setTitle("Profile");
+
+            Scene scene = new Scene(editProfile);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+            controller.focus();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

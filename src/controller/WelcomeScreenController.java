@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import fxapp.MainApplication;
 
+import javafx.scene.layout.AnchorPane;
 import model.User;
 import model.Model;
 
@@ -14,6 +15,9 @@ public class WelcomeScreenController {
 
 
     @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
     private void initialize() {
 
     }
@@ -21,6 +25,10 @@ public class WelcomeScreenController {
 
     public void setMainApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
+    }
+
+    public void focus() {
+        anchorPane.requestFocus();
     }
 
     @FXML
