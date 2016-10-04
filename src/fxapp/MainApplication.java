@@ -1,6 +1,5 @@
 package fxapp;
 
-import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,14 +11,25 @@ import javafx.stage.Stage;
 import model.Model;
 import model.User;
 
+import controller.*;
+
 import java.io.IOException;
 
+
+/**
+ * Main application class.
+ *
+ * This class handles all the scene switching.
+ *
+ */
 
 public class MainApplication extends Application {
 
 
+    /** the main container for the application window */
     private Stage mainScreen;
 
+    /** the main layout for the main window */
     private AnchorPane mainLayout;
 
     @Override
@@ -28,6 +38,12 @@ public class MainApplication extends Application {
         initMainLayout();
     }
 
+    /**
+     * Initialize the main screen for the application and display the welcome view.
+     * Most other views will be shown in this screen.
+     * This view is shown on the application startup.
+     *
+     */
     public void initMainLayout() {
         try {
 
@@ -52,6 +68,10 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Setup the default application view that is shown after successful login.
+     *
+     */
     public void showApplicationScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -75,6 +95,13 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Opens a dialog to login. If the user clicks SUBMIT and authentication is successful
+     * the user is logged in to the application.
+     *
+     * @param user the user object to be edited
+     * @return true if the user logged in, false otherwise.
+     */
     public boolean showLoginDialog(User user) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -97,7 +124,7 @@ public class MainApplication extends Application {
 
             dialogStage.showAndWait();
 
-            return controller.isOkClicked();
+            return controller.isLoggedIn();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,6 +132,13 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Opens a dialog to register. If the user clicks SUBMIT and username is valid
+     * a new user is added to the list of registered users.
+     *
+     * @param user the user object to be edited
+     * @return true if the user registered, false otherwise.
+     */
     public boolean showRegisterDialog(User user) {
         try {
 
@@ -128,7 +162,7 @@ public class MainApplication extends Application {
 
             dialogStage.showAndWait();
 
-            if (controller.isOkClicked()) {
+            if (controller.isRegistered()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.initOwner(dialogStage);
@@ -138,7 +172,7 @@ public class MainApplication extends Application {
                 alert.showAndWait();
             }
 
-            return controller.isOkClicked();
+            return controller.isRegistered();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -146,6 +180,12 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Opens a dialog to change password. If the old password is valid
+     * a password is is changed to a new one.
+     *
+     * @return true if the user changed password, false otherwise.
+     */
     public boolean showChangePasswordDialog() {
         try {
 
@@ -169,7 +209,7 @@ public class MainApplication extends Application {
 
             dialogStage.showAndWait();
 
-            if (controller.isOkClicked()) {
+            if (controller.isPasswordChanged()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.initOwner(dialogStage);
@@ -179,7 +219,7 @@ public class MainApplication extends Application {
                 alert.showAndWait();
             }
 
-            return controller.isOkClicked();
+            return controller.isPasswordChanged();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -187,6 +227,11 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Setup the view of user's profile.
+     * Shown after clicking the PROFILE button in the app.
+     *
+     */
     public void showProfileScreen() {
         try {
 
@@ -211,6 +256,11 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Setup the view editing user's profile.
+     * Shown after clicking the EDIT button in the profile's view
+     *
+     */
     public void showEditProfileScreen() {
         try {
 

@@ -12,8 +12,18 @@ import model.Model;
 import model.User;
 
 
+/**
+ * The controller for the main application window.
+ *
+ */
 public class ApplicationController {
 
+    /** a link back to the main application class */
+    private MainApplication mainApplication;
+
+
+
+    /** references to the widgets in the fxml file */
     @FXML
     private Text welcomeMessage;
 
@@ -23,10 +33,16 @@ public class ApplicationController {
     @FXML
     private AnchorPane anchorPane;
 
-    private MainApplication mainApplication;
 
+    /** user currently logged in */
     private User activeUser;
 
+
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
         welcomeMessage.setText("Welcome!");
@@ -34,28 +50,44 @@ public class ApplicationController {
         welcomeHBox.setAlignment(Pos.CENTER);
     }
 
-    public void setActiveUser(User user) {
-        activeUser = user;
-        welcomeMessage.setText("Welcome " + activeUser.getUserName() + "!");
-    }
-    public User getActiveUser() {
-        return activeUser;
-    }
-
+    /**
+     * Setup the main application link.
+     *
+     * @param mainApplication  a reference (link) to our main class
+     */
     public void setMainApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
     }
 
+    /**
+     * Set the logged user and setup the welcome message.
+     *
+     * @param user currently logged in user
+     */
+    public void setActiveUser(User user) {
+        activeUser = user;
+        welcomeMessage.setText("Welcome " + activeUser.getUserName() + "!");
+    }
+
+    /**
+     * Sets the default focus of the window
+     */
     public void focus() {
         anchorPane.requestFocus();
     }
 
+    /**
+     * Called when the user clicks sign out.
+     */
     @FXML
     private void handleSignOutPressed() {
         Model.getInstance().setLoggedUser(new User());
         mainApplication.initMainLayout();
     }
 
+    /**
+     * Called when the user clicks my profile.
+     */
     @FXML
     private void handleMyProfilePressed() {
         mainApplication.showProfileScreen();

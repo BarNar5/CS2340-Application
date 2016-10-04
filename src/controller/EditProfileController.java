@@ -1,26 +1,29 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import fxapp.MainApplication;
-import javafx.geometry.Pos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
-import javafx.stage.Stage;
 import model.AccountType;
 import model.Gender;
-import model.Model;
 import model.User;
 
+
+/**
+ * The controller for the edit profile view.
+ *
+ */
 public class EditProfileController {
 
+    /** a link back to the main application class */
+    private MainApplication mainApplication;
+
+
+    /** references to the widgets in the fxml file */
     @FXML
     private TextField nameField = new TextField();
 
@@ -57,11 +60,16 @@ public class EditProfileController {
     @FXML
     private AnchorPane anchorPane;
 
-    private MainApplication mainApplication;
 
+    /** user currently logged in */
     private User activeUser;
 
 
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
         Gender[] genderValues = Gender.values();
@@ -90,7 +98,20 @@ public class EditProfileController {
         accountTypeField.getItems().addAll(typeOptions);
     }
 
+    /**
+     * Setup the main application link.
+     *
+     * @param mainApplication  a reference (link) to our main class
+     */
+    public void setMainApp(MainApplication mainApplication) {
+        this.mainApplication = mainApplication;
+    }
 
+    /**
+     * Set the logged user and setup the profile information.
+     *
+     * @param user currently logged in user
+     */
     public void setActiveUser(User user) {
         activeUser = user;
         nameField.setPromptText("name");
@@ -132,18 +153,17 @@ public class EditProfileController {
             address3Field.setText(user.getAddress3());
         }
     }
-    public User getActiveUser() {
-        return activeUser;
-    }
 
-    public void setMainApp(MainApplication mainApplication) {
-        this.mainApplication = mainApplication;
-    }
-
+    /**
+     * Sets the default focus of the window
+     */
     public void focus() {
         anchorPane.requestFocus();
     }
 
+    /**
+     * Called when the user clicks save.
+     */
     @FXML
     private void handleSavePressed() {
         activeUser.setName(nameField.getText());
@@ -171,6 +191,9 @@ public class EditProfileController {
         mainApplication.showProfileScreen();
     }
 
+    /**
+     * Called when the user clicks cancel.
+     */
     @FXML
     private void handleCancelPressed() {
         mainApplication.showProfileScreen();

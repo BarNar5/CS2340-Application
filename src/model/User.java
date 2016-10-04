@@ -1,9 +1,18 @@
 package model;
 
-
-import sun.security.util.Password;
+/**
+ * Represents a single user in the system
+ *
+ * Information Holder
+ */
 
 public class User {
+
+    /**
+     * Properties of a user.
+     *
+     */
+
     private String userName;
     private String password;
     private AccountType accountType;
@@ -19,6 +28,10 @@ public class User {
     private String address3;
 
 
+    /**
+     * Getters and setters for all the properties.
+     *
+     */
 
     public String getUserName() {
         return userName;
@@ -111,21 +124,43 @@ public class User {
         this.accountType = type;
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param userName  a name of a new user
+     * @param password  a password of a new user
+     * @param type      a type of a new user
+     */
     public User(String userName, String password, AccountType type) {
         this.userName = userName;
         this.password = password;
         this.accountType = type;
     }
 
-    public User() {
-        this("enter username", "enter password", AccountType.USER);
-    }
-
+    /**
+     * Create a new user.
+     *
+     * @param userName  a name of a new user
+     * @param password  a password of a new user
+     */
     public User(String userName, String password) {
         this(userName, password, AccountType.USER);
     }
 
-    @Override
+    /**
+     * No param constructor to use ONLY in login/register dialogs
+     *
+     */
+    public User() {
+        this("enter username", "enter password", AccountType.USER);
+    }
+
+    /**
+     * compares if this user is the same as a passed object
+     *
+     * @param that Object to compare to
+     * @return true if two users are equal
+     */
     public boolean equals(Object that) {
         if (that == null) {
             return false;
@@ -140,6 +175,12 @@ public class User {
         return userName.equals(user.getUserName()) && password.equals(user.getPassword());
     }
 
+    /**
+     * compares if this user has the same name as a passed object
+     *
+     * @param that Object to compare to
+     * @return true if two users have the same name
+     */
     public boolean equalName(Object that) {
         if (that == null) {
             return false;
@@ -154,6 +195,10 @@ public class User {
         return userName.equals(user.getUserName());
     }
 
+    /**
+     *
+     * @return a string representation of a user
+     */
     public String toString() {
         return userName + " " + password + " " + accountType;
     }

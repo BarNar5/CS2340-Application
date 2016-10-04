@@ -3,27 +3,31 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * This class serves as a Facade into the application model
+ * Right now it is a Singleton so the controllers can get access easily.
+ *
+ */
+
 public class Model {
 
+    /** Set Model up as a singleton design pattern */
     private static final Model instance = new Model();
-
-    private User loggedUser;
-
     public static Model getInstance() {
         return instance;
     }
 
-    public User getLoggedUser() {
-        return loggedUser;
-    }
-    public void setLoggedUser(User user) {
-        loggedUser = user;
-    }
-
-
+    /** a list of all the courses in the university */
     private final ObservableList<User> users = FXCollections.observableArrayList();
 
+    /** a user currently logged in */
+    private User loggedUser;
 
+
+    /**
+     * Make a new Model.
+     * Fill it with some users for testing reasons.
+     */
     private Model () {
         users.add(new User("Bartek", "qwerty"));
         users.add(new User("a", "a"));
@@ -41,12 +45,41 @@ public class Model {
         users.add(admin);
     }
 
+    /**
+     * Get a currently logged user.
+     *
+     * @return currently logged user
+     */
+    public User getLoggedUser() {
+        return loggedUser;
+    }
 
+    /**
+     * Set a currently logged user.
+     *
+     * @param user a user to set as a logged one
+     */
+    public void setLoggedUser(User user) {
+        loggedUser = user;
+    }
+
+
+    /**
+     * Get a list of all registered users.
+     *
+     * @return a list of users
+     */
     public ObservableList<User> getUsers() {
         return users;
     }
 
 
+    /**
+     * add a new user to a list of registered users.
+     *
+     * @param user a new user to add
+     * @return true if the user was added, false if not added
+     */
     public boolean addUser(User user) {
         return users.add(user);
     }

@@ -1,23 +1,28 @@
 package controller;
 
+import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 import model.AccountType;
 import model.Model;
 import model.User;
 
 
+/**
+ * The controller for the user register dialog.
+ *
+ */
 public class UserRegisterController {
 
 
+    /** references to the widgets in the fxml file */
     @FXML
     private TextField nameField;
 
@@ -30,12 +35,22 @@ public class UserRegisterController {
     @FXML
     private ComboBox<String> accountTypeField = new ComboBox<>();
 
+
+    /** the window for this dialog */
     private Stage dialogStage;
 
+    /** temporary user object to edit used to validate register information */
     private User user;
 
-    private boolean okClicked = false;
+    /** flag to signal whether user successfully registered */
+    private boolean registered = false;
 
+
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
         AccountType[] values = AccountType.values();
@@ -51,11 +66,20 @@ public class UserRegisterController {
         accountTypeField.getItems().addAll(options);
     }
 
+    /**
+     * Sets the stage of this dialog.
+     *
+     * @param dialogStage the stage for this dialog
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-
+    /**
+     * Sets the user to be edited in the dialog.
+     *
+     * @param user  the user who will be edited
+     */
     public void setUser(User user) {
         this.user = user;
 
@@ -67,20 +91,24 @@ public class UserRegisterController {
 
     }
 
+    /**
+     * Sets the default focus of the window
+     */
     public void focus() {
         anchorPane.requestFocus();
     }
 
     /**
-     * Returns true if the user clicked OK, false otherwise.
      *
-     * @return  true if the user clicked the OK button
+     * @return  true if the user registered, false otherwise
      */
-    public boolean isOkClicked() {
-        return okClicked;
+    public boolean isRegistered() {
+        return registered;
     }
 
-
+    /**
+     * Called when the user clicks submit.
+     */
     @FXML
     private void handleSubmitPressed() {
 
@@ -91,7 +119,7 @@ public class UserRegisterController {
             user.setAccountType(AccountType.valueOf(accountTypeField.getValue()));
             Model.getInstance().addUser(user);
 
-            okClicked = true;
+            registered = true;
             dialogStage.close();
 
         } else {
@@ -106,12 +134,21 @@ public class UserRegisterController {
         }
     }
 
+    /**
+     * Called when the user clicks cancel.
+     */
     @FXML
     private void handleCancelPressed() {
         dialogStage.close();
     }
 
-
+    /**
+     * Validates the user input in the text fields.
+     *
+     * @param name username of the new user
+     * @param password password of a new user
+     * @return true if the input is valid
+     */
     private boolean isInputValid(String name, String password) {
 
         User tempUser = new User(name, password);

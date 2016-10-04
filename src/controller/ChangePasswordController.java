@@ -1,23 +1,22 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.AccountType;
-import model.Model;
+
 import model.User;
 
 
+/**
+ * The controller for the password change dialog.
+ *
+ */
 public class ChangePasswordController {
 
 
+    /** references to the widgets in the fxml file */
     @FXML
     private PasswordField oldPasswordField;
 
@@ -27,54 +26,77 @@ public class ChangePasswordController {
     @FXML
     private AnchorPane anchorPane;
 
+
+    /** the window for this dialog */
     private Stage dialogStage;
 
-    private User user;
+    /** user currently logged in */
+    private User activeUser;
 
-    private boolean okClicked = false;
+    /** flag to signal whether password was successfully changed */
+    private boolean passwordChanged = false;
 
+
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
 
     }
 
+    /**
+     * Sets the stage of this dialog.
+     *
+     * @param dialogStage the stage for this dialog
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-
+    /**
+     * Set the logged user and setup password fields.
+     *
+     * @param user currently logged in user
+     */
     public void setUser(User user) {
-        this.user = user;
+        this.activeUser = user;
 
-        if (user == null) System.out.println("User was null in login!");
+        if (activeUser == null) System.out.println("User was null in login!");
 
         oldPasswordField.setPromptText("old password");
         newPasswordField.setPromptText("new password");
 
     }
 
+    /**
+     * Sets the default focus of the window
+     */
     public void focus() {
         anchorPane.requestFocus();
     }
 
     /**
-     * Returns true if the user clicked OK, false otherwise.
      *
-     * @return  true if the user clicked the OK button
+     * @return  true if password was changed, false otherwise
      */
-    public boolean isOkClicked() {
-        return okClicked;
+    public boolean isPasswordChanged() {
+        return passwordChanged;
     }
 
-
+    /**
+     * Called when the user clicks submit.
+     */
     @FXML
     private void handleSubmitPressed() {
 
-        if (isInputValid(user.getUserName(), oldPasswordField.getText())) {
+        if (isInputValid(activeUser.getUserName(), oldPasswordField.getText())) {
 
-            user.setPassword(newPasswordField.getText());
+            activeUser.setPassword(newPasswordField.getText());
 
-            okClicked = true;
+            passwordChanged = true;
             dialogStage.close();
 
         } else {
@@ -89,16 +111,25 @@ public class ChangePasswordController {
         }
     }
 
+    /**
+     * Called when the user clicks cancel.
+     */
     @FXML
     private void handleCancelPressed() {
         dialogStage.close();
     }
 
-
+    /**
+     * Validates the user input in the text fields.
+     *
+     * @param name username of a user
+     * @param password password of a user
+     * @return true if the input is valid
+     */
     private boolean isInputValid(String name, String password) {
 
         User tempUser = new User(name, password);
-        if (user.equals(tempUser)) {
+        if (activeUser.equals(tempUser)) {
             return true;
         }
         return false;
