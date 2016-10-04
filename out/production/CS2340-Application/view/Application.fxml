@@ -8,7 +8,6 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationController">
    <children>
-      <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
       <HBox fx:id="welcomeHBox" layoutX="93.0" layoutY="135.0" prefHeight="100.0" prefWidth="414.0">
          <children>
             <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" textOrigin="CENTER" wrappingWidth="205.0">
@@ -19,5 +18,6 @@
          </children>
       </HBox>
       <Button layoutX="476.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleMyProfilePressed" text="My profile" />
+      <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
    </children>
 </AnchorPane>

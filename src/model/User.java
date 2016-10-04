@@ -1,6 +1,8 @@
 package model;
 
 
+import sun.security.util.Password;
+
 public class User {
     private String userName;
     private String password;

@@ -25,6 +25,9 @@ public class EditProfileController {
     private TextField nameField = new TextField();
 
     @FXML
+    private ComboBox<String> accountTypeField = new ComboBox<>();
+
+    @FXML
     private ComboBox<String> genderField = new ComboBox<>();
 
     @FXML
@@ -61,24 +64,37 @@ public class EditProfileController {
 
     @FXML
     private void initialize() {
-        Gender[] values = Gender.values();
+        Gender[] genderValues = Gender.values();
 
-        String[] genders = new String[values.length + 1];
+        String[] genders = new String[genderValues.length + 1];
         genders[0] = "";
 
-        for (int i = 0; i < values.length; i++) {
-            genders[i + 1] = values[i].toString();
+        for (int i = 0; i < genderValues.length; i++) {
+            genders[i + 1] = genderValues[i].toString();
         }
-        ObservableList<String> options = FXCollections.observableArrayList(
+        ObservableList<String> genderOptions = FXCollections.observableArrayList(
                 genders);
 
-        genderField.getItems().addAll(options);
+        genderField.getItems().addAll(genderOptions);
+
+        AccountType[] typeValues = AccountType.values();
+
+        String[] types = new String[typeValues.length];
+
+        for (int i = 0; i < typeValues.length; i++) {
+            types[i] = typeValues[i].toString();
+        }
+        ObservableList<String> typeOptions = FXCollections.observableArrayList(
+                types);
+
+        accountTypeField.getItems().addAll(typeOptions);
     }
 
 
     public void setActiveUser(User user) {
         activeUser = user;
         nameField.setPromptText("name");
+        accountTypeField.setValue(user.getAccountType().toString());
         if (user.getName() != null) {
             nameField.setText(user.getName());
         }
@@ -131,6 +147,7 @@ public class EditProfileController {
     @FXML
     private void handleSavePressed() {
         activeUser.setName(nameField.getText());
+        activeUser.setAccountType(AccountType.valueOf(accountTypeField.getValue()));
         if (genderField.getValue() != null && genderField.getValue() != "") {
             activeUser.setGender(Gender.valueOf(genderField.getValue()));
         } else {

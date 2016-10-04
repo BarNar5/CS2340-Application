@@ -146,6 +146,47 @@ public class MainApplication extends Application {
         }
     }
 
+    public boolean showChangePasswordDialog() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/ChangePasswordScreen.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Change Password");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ChangePasswordController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUser(Model.getInstance().getLoggedUser());
+
+            controller.focus();
+
+
+            dialogStage.showAndWait();
+
+            if (controller.isOkClicked()) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initOwner(dialogStage);
+                alert.setHeaderText("Password Changed!");
+                //alert.setContentText("You can now login to the application");
+
+                alert.showAndWait();
+            }
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void showProfileScreen() {
         try {
 

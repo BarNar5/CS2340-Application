@@ -12,8 +12,6 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserLoginController">
    <children>
-      <Button layoutX="116.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleSubmitPressed" text="Submit" />
-      <Button layoutX="220.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleCancelPressed" text="Cancel" />
       <GridPane layoutY="72.0" prefHeight="80.0" prefWidth="400.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="107.0" />
@@ -31,6 +29,8 @@
             <Label text="Password : " GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <Button layoutX="116.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleSubmitPressed" text="Submit" />
+      <Button layoutX="220.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleCancelPressed" text="Cancel" />
       <Label layoutX="147.0" layoutY="14.0" text="Login">
          <font>
             <Font size="39.0" />

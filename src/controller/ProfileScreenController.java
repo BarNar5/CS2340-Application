@@ -18,6 +18,9 @@ public class ProfileScreenController {
     private Label nameLabel;
 
     @FXML
+    private Label accountTypeLabel;
+
+    @FXML
     private Label genderLabel;
 
     @FXML
@@ -56,6 +59,7 @@ public class ProfileScreenController {
     public void setActiveUser(User user) {
         activeUser = user;
         nameLabel.setText(user.getName());
+        accountTypeLabel.setText(user.getAccountType().toString());
         if (user.getGender() != null) {
             genderLabel.setText(user.getGender().toString());
         }
@@ -92,6 +96,11 @@ public class ProfileScreenController {
     @FXML
     private void handleEditPressed() {
         mainApplication.showEditProfileScreen();
+    }
+
+    @FXML
+    private void handleChangePasswordPressed() {
+        mainApplication.showChangePasswordDialog();
     }
 
 }

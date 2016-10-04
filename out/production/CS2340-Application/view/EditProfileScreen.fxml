@@ -11,25 +11,49 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditProfileController">
    <children>
-      <GridPane layoutX="46.0" layoutY="59.0" prefHeight="60.0" prefWidth="390.0">
+      <GridPane layoutX="46.0" layoutY="40.0" prefHeight="90.0" prefWidth="390.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="109.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="281.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name: " />
-            <Label text="Gender: " GridPane.rowIndex="1" />
+            <Label text="Account Type: " GridPane.rowIndex="1" />
+            <Label text="Gender: " GridPane.rowIndex="2" />
             <TextField fx:id="nameField" GridPane.columnIndex="1" />
-            <ComboBox fx:id="genderField" prefHeight="26.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="accountTypeField" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="genderField" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="496.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleCancelPressed" text="Cancel" />
-      <Button layoutX="509.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleSavePressed" text="Save" />
-      <GridPane layoutX="46.0" layoutY="149.0" prefHeight="150.0" prefWidth="390.0">
+      <GridPane layoutX="46.0" layoutY="130.0" prefHeight="30.0" prefWidth="390.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="109.0" prefWidth="109.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="51.0" minWidth="51.0" prefWidth="51.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="39.0" minWidth="39.0" prefWidth="39.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="44.0" minWidth="44.0" prefWidth="44.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Birth Date: " />
+            <Label text="Month " GridPane.columnIndex="1" />
+            <TextField fx:id="dateMonthField" GridPane.columnIndex="2" />
+            <Label text="Day " GridPane.columnIndex="3" />
+            <TextField fx:id="dateDayField" GridPane.columnIndex="4" />
+            <Label text="Year " GridPane.columnIndex="5" />
+            <TextField fx:id="dateYearField" prefHeight="26.0" prefWidth="81.0" GridPane.columnIndex="6" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="46.0" layoutY="160.0" prefHeight="150.0" prefWidth="390.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="109.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="281.0" />
@@ -52,28 +76,7 @@
             <TextField fx:id="address3Field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <GridPane layoutX="46.0" layoutY="119.0" prefHeight="30.0" prefWidth="390.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="109.0" prefWidth="109.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="51.0" minWidth="51.0" prefWidth="51.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="39.0" minWidth="39.0" prefWidth="39.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="44.0" minWidth="44.0" prefWidth="44.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label text="Birth Date: " />
-            <Label text="Month " GridPane.columnIndex="1" />
-            <Label text="Day " GridPane.columnIndex="3" />
-            <Label text="Year " GridPane.columnIndex="5" />
-            <TextField fx:id="dateMonthField" GridPane.columnIndex="2" />
-            <TextField fx:id="dateDayField" GridPane.columnIndex="4" />
-            <TextField fx:id="dateYearField" prefHeight="26.0" prefWidth="81.0" GridPane.columnIndex="6" />
-         </children>
-      </GridPane>
+      <Button layoutX="509.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleSavePressed" text="Save" />
+      <Button layoutX="496.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleCancelPressed" text="Cancel" />
    </children>
 </AnchorPane>
