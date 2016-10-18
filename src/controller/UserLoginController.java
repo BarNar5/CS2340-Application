@@ -66,13 +66,6 @@ public class UserLoginController {
     public void setUser(User user) {
         this.user = user;
 
-        if (user == null) System.out.println("User was null in login!");
-
-        /*
-        nameField.setText(user.getName());
-        passwordField.setText(user.getPassword());
-        */
-
         nameField.setPromptText(user.getUserName());
         passwordField.setPromptText(user.getPassword());
 

@@ -85,11 +85,24 @@ public class ApplicationController {
         mainApplication.initMainLayout();
     }
 
+    @FXML
+    private void handleAddWaterReportPressed() {
+        mainApplication.showAddWaterSourceReportDialog();
+    }
+
     /**
      * Called when the user clicks my profile.
      */
     @FXML
     private void handleMyProfilePressed() {
         mainApplication.showProfileScreen();
+    }
+
+    /**
+     * Called when the user clicks view my reports.
+     */
+    @FXML
+    private void handleViewReportsPressed() {
+        mainApplication.showReportListScreen();
     }
 }

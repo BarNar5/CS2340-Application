@@ -83,8 +83,6 @@ public class UserRegisterController {
     public void setUser(User user) {
         this.user = user;
 
-        if (user == null) System.out.println("User was null in login!");
-
         nameField.setPromptText(user.getUserName());
         passwordField.setPromptText(user.getPassword());
         accountTypeField.setValue(user.getAccountType().toString());

@@ -19,5 +19,7 @@
       </HBox>
       <Button layoutX="476.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleMyProfilePressed" text="My profile" />
       <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
+      <Button layoutX="62.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleAddWaterReportPressed" text="New Water Report" />
+      <Button layoutX="221.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleViewReportsPressed" text="View My Reports" />
    </children>
 </AnchorPane>

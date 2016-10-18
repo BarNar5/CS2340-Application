@@ -285,6 +285,80 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Opens a dialog to add a water source report. If the user clicks SUBMIT
+     * and enters all the required data a new report is added to the system.
+     *
+     * @return true if the report was added, false otherwise.
+     */
+    public boolean showAddWaterSourceReportDialog() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/SubmitReportScreen.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("New Water Source Report");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddWaterSourceReportController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            controller.focus();
+
+
+            dialogStage.showAndWait();
+
+            if (controller.isReportAdded()) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initOwner(dialogStage);
+                alert.setHeaderText("Report Submitted Successfully!");
+
+                alert.showAndWait();
+            }
+
+            return controller.isReportAdded();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Setup the view of reports for an active user
+     * Shown after clicking the Show My Reports button.
+     *
+     */
+    public void showReportListScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/ReportListScreen.fxml"));
+            AnchorPane ReportListScreen = loader.load();
+
+            WaterReportListController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            mainScreen.setTitle("My Reports");
+
+            Scene scene = new Scene(ReportListScreen);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+            controller.focus();
+
+        } catch (IOException e) {
+            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -122,11 +122,11 @@ public class EditProfileController {
         if (user.getGender() != null) {
             genderField.setValue(user.getGender().toString());
         }
-        ///*
+
         dateMonthField.setPromptText("mm");
         dateDayField.setPromptText("dd");
         dateYearField.setPromptText("yyyy");
-        //*/
+
         if (user.getDateYear() != null && user.getDateDay() != null && user.getDateMonth() != null) {
             dateMonthField.setText((user.getDateMonth()));
             dateDayField.setText((user.getDateDay()));
@@ -179,7 +179,12 @@ public class EditProfileController {
             activeUser.setDateMonth(dateMonthField.getText());
             activeUser.setDateDay(dateDayField.getText());
             activeUser.setDateYear(dateYearField.getText());
-        } else {
+        }
+        if (dateMonthField.getText().length() == 0 &&
+                dateDayField.getText().length() == 0 &&
+                dateYearField.getText().length() == 0) {
+            activeUser.setDateMonth(null);
+            activeUser.setDateDay(null);
             activeUser.setDateYear(null);
         }
         activeUser.setPhoneNumber(phoneField.getText());

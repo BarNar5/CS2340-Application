@@ -1,5 +1,11 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a single user in the system
  *
@@ -26,6 +32,7 @@ public class User {
     private String address1;
     private String address2;
     private String address3;
+    private ObservableList<WaterSourceReport> waterSourceReports;
 
 
     /**
@@ -124,6 +131,9 @@ public class User {
         this.accountType = type;
     }
 
+    public ObservableList<WaterSourceReport> getWaterSourceReports() {
+        return waterSourceReports;
+    }
     /**
      * Create a new user.
      *
@@ -135,6 +145,7 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.accountType = type;
+        waterSourceReports = FXCollections.observableArrayList();
     }
 
     /**
@@ -193,6 +204,33 @@ public class User {
         }
         User user = (User) that;
         return userName.equals(user.getUserName());
+    }
+
+    /**
+     * adds a new water source report
+     *
+     * @param reportID new report's ID number
+     * @param waterType new report's water type
+     * @param waterCondition new report's water condition
+     * @param locationName new report's location name
+     * @param locationX new report's NS location
+     * @param locationY new report's EW location
+     */
+    public void addWaterReport(int reportID,
+                               WaterType waterType,
+                               WaterCondition waterCondition,
+                               String locationName,
+                               double locationX,
+                               double locationY) {
+        WaterSourceReport waterReport = new WaterSourceReport(reportID,
+                userName);
+        waterReport.setWaterType(waterType);
+        waterReport.setWaterCondition(waterCondition);
+        waterReport.setLocationName(locationName);
+        waterReport.setLocationX(locationX);
+        waterReport.setLocationY(locationY);
+
+        waterSourceReports.add(waterReport);
     }
 
     /**

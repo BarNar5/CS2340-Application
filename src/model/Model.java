@@ -23,12 +23,15 @@ public class Model {
     /** a user currently logged in */
     private User loggedUser;
 
+    private int waterReportCounter;
+
 
     /**
      * Make a new Model.
      * Fill it with some users for testing reasons.
      */
     private Model () {
+        waterReportCounter = 10000000;
         users.add(new User("Bartek", "qwerty"));
         users.add(new User("a", "a"));
         User admin = new User("admin", "admin", AccountType.ADMIN);
@@ -63,6 +66,14 @@ public class Model {
         loggedUser = user;
     }
 
+    /**
+     * Get a next ID for a water report
+     *
+     * @return the ID for a new water report
+     */
+    public int getWaterReportCounter() {
+        return waterReportCounter++;
+    }
 
     /**
      * Get a list of all registered users.
