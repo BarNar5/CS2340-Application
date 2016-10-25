@@ -105,4 +105,12 @@ public class ApplicationController {
     private void handleViewReportsPressed() {
         mainApplication.showReportListScreen();
     }
+
+    /**
+     * Called when the user clicks show map.
+     */
+    @FXML
+    private void handleShowMapPressed() {
+        mainApplication.showMapAvailability();
+    }
 }

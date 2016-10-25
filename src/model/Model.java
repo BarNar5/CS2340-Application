@@ -3,6 +3,9 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class serves as a Facade into the application model
  * Right now it is a Singleton so the controllers can get access easily.
@@ -17,8 +20,11 @@ public class Model {
         return instance;
     }
 
-    /** a list of all the courses in the university */
+    /** a list of all the users */
     private final ObservableList<User> users = FXCollections.observableArrayList();
+
+    /** a list of all the water locations */
+    private final List<Location> locations = new ArrayList<>();
 
     /** a user currently logged in */
     private User loggedUser;
@@ -46,6 +52,8 @@ public class Model {
         admin.setAddress2("Georgia Tech Dr 69");
         admin.setAddress3("Atlanta, GA 33333");
         users.add(admin);
+        Location l = new Location(1, 33.7756, -84.3963, "Test Marker", "<h2>Test </h2>  \nsome data");
+        locations.add(l);
     }
 
     /**
@@ -84,6 +92,10 @@ public class Model {
         return users;
     }
 
+    public List<Location> getLocations() {
+        return locations;
+    }
+
 
     /**
      * add a new user to a list of registered users.
@@ -93,5 +105,9 @@ public class Model {
      */
     public boolean addUser(User user) {
         return users.add(user);
+    }
+
+    public boolean addLocation(Location location) {
+        return locations.add(location);
     }
 }

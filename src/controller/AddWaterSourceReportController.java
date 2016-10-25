@@ -190,12 +190,19 @@ public class AddWaterSourceReportController {
 
             if (Double.valueOf(locationXField.getText()) <= 90
                     && Double.valueOf(locationYField.getText()) <= 180) {
+                Double ns = Double.valueOf(locationXField.getText());
+                Double ew = Double.valueOf(locationYField.getText());
+                if (NS.getValue() == "S") {
+                    ns *= -1;
+                }
+                if (EW.getValue() == "W") {
+                    ew *= -1;
+                }
                 activeUser.addWaterReport(Model.getInstance().getWaterReportCounter(),
                         WaterType.valueOf(waterTypeField.getValue()),
                         WaterCondition.valueOf(waterConditionField.getValue()),
                         locationNameField.getText(),
-                        Double.valueOf(locationXField.getText()),
-                        Double.valueOf(locationYField.getText()));
+                        ns, ew);
 
                 reportAdded = true;
                 dialogStage.close();

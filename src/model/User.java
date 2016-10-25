@@ -231,6 +231,11 @@ public class User {
         waterReport.setLocationY(locationY);
 
         waterSourceReports.add(waterReport);
+
+        String str = "<h2>" + locationName + "</h2> <br>"
+                + waterType + "<br>" + waterCondition;
+        Location location = new Location(reportID, locationX, locationY, locationName, str);
+        Model.getInstance().addLocation(location);
     }
 
     /**

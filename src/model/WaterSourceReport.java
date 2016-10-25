@@ -15,7 +15,7 @@ public class WaterSourceReport {
      *
      */
 
-    private int reportID;
+    private final int reportID;
     private String reporterUserName;
     private int dateDay;
     private int dateMonth;

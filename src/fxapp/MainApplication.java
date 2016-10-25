@@ -1,10 +1,16 @@
 package fxapp;
 
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -12,6 +18,8 @@ import model.Model;
 import model.User;
 
 import controller.*;
+
+import netscape.javascript.JSObject;
 
 import java.io.IOException;
 
@@ -340,7 +348,7 @@ public class MainApplication extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("../view/ReportListScreen.fxml"));
-            AnchorPane ReportListScreen = loader.load();
+            AnchorPane reportListScreen = loader.load();
 
             WaterReportListController controller = loader.getController();
             controller.setMainApp(this);
@@ -348,7 +356,7 @@ public class MainApplication extends Application {
 
             mainScreen.setTitle("My Reports");
 
-            Scene scene = new Scene(ReportListScreen);
+            Scene scene = new Scene(reportListScreen);
             mainScreen.setScene(scene);
             mainScreen.show();
 
@@ -359,7 +367,36 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Setup the map view
+     * Shown after clicking the Show Map button.
+     *
+     */
+    public void showMapAvailability() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/MapScreen.fxml"));
+            AnchorPane mapScreen = loader.load();
+
+
+            MapController controller = loader.getController();
+            controller.setMainApp(this);
+
+            mainScreen.setTitle("Water Availability");
+
+            Scene scene = new Scene(mapScreen);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+
+        } catch (IOException e) {
+            System.out.println("Failed to find the fxml file for MapScreen!!");
+        }
+    }
+
     public static void main(String[] args) {
+        System.setProperty("java.net.useSystemProxies", "true");
         launch(args);
     }
 }

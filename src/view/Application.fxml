@@ -21,5 +21,6 @@
       <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
       <Button layoutX="62.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleAddWaterReportPressed" text="New Water Report" />
       <Button layoutX="221.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleViewReportsPressed" text="View My Reports" />
+      <Button layoutX="372.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleShowMapPressed" text="Show Map" />
    </children>
 </AnchorPane>
