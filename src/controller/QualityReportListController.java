@@ -10,21 +10,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
-import model.User;
-import model.WaterSourceReport;
-import model.Report;
+import model.*;
 
 /**
- * The controller for the water report list view.
+ * The controller for the quality report list view.
  *
  */
-public class WaterReportListController {
+public class QualityReportListController {
 
     /** a link back to the main application class */
     private MainApplication mainApplication;
 
     @FXML
-    private ListView<Report> reportList;
+    private ListView<WaterQualityReport> reportList = new ListView<>();
 
     @FXML
     private AnchorPane anchorPane;
@@ -40,6 +38,7 @@ public class WaterReportListController {
      */
     @FXML
     private void initialize() {
+        reportList.setItems(Model.getInstance().getQualityReports());
     }
 
     /**
@@ -49,7 +48,6 @@ public class WaterReportListController {
      */
     public void setActiveUser(User user) {
         activeUser = user;
-        reportList.setItems(user.getWaterReports());
     }
 
     /**

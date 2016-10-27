@@ -3,15 +3,15 @@ package model;
 import java.util.Calendar;
 
 /**
- * Represents a single water source report in the system
+ * Represents a single water quality report in the system
  *
  * Information Holder
  */
 
-public class WaterSourceReport extends Report{
+public class WaterQualityReport extends Report {
 
     /**
-     * Properties of a water source report.
+     * Properties of a water quality report.
      *
      */
 
@@ -20,11 +20,12 @@ public class WaterSourceReport extends Report{
     private int dateDay;
     private int dateMonth;
     private int dateYear;
-    private WaterType waterType;
-    private WaterCondition waterCondition;
+    private OverallCondition overallCondition;
     private String locationName;
     private double locationX;
     private double locationY;
+    private double virusPPM;
+    private double contaminantPPM;
 
 
     /**
@@ -52,18 +53,11 @@ public class WaterSourceReport extends Report{
         return dateYear;
     }
 
-    public WaterType getWaterType() {
-        return waterType;
+    public OverallCondition getOverallCondition() {
+        return overallCondition;
     }
-    public void setWaterType(WaterType waterType) {
-        this.waterType = waterType;
-    }
-
-    public WaterCondition getWaterCondition() {
-        return waterCondition;
-    }
-    public void setWaterCondition(WaterCondition waterCondition) {
-        this.waterCondition = waterCondition;
+    public void setOverallCondition(OverallCondition overallCondition) {
+        this.overallCondition = overallCondition;
     }
 
     public String getLocationName() {
@@ -87,13 +81,27 @@ public class WaterSourceReport extends Report{
         this.locationY = y;
     }
 
+    public double getVirusPPM() {
+        return virusPPM;
+    }
+    public void setVirusPPM(double x) {
+        this.virusPPM = x;
+    }
+
+    public double getContaminantPPM() {
+        return contaminantPPM;
+    }
+    public void setContaminantPPM(double y) {
+        this.contaminantPPM = y;
+    }
+
     /**
-     * Create a new water source report.
+     * Create a new water quality source report.
      *
      * @param reportID  the id of this report
      * @param userName  a username of a reporter
      */
-    public WaterSourceReport(int reportID, String userName) {
+    public WaterQualityReport(int reportID, String userName) {
         Calendar calendar = Calendar.getInstance();
         dateDay = calendar.get(Calendar.DATE);
         dateMonth = calendar.get(Calendar.MONTH) + 1;

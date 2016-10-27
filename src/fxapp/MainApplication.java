@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import model.AccountType;
 import model.Model;
 import model.User;
 
@@ -83,12 +84,19 @@ public class MainApplication extends Application {
     public void showApplicationScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/Application.fxml"));
+            User activeUser = Model.getInstance().getLoggedUser();
+            if (activeUser.getAccountType() == AccountType.WORKER) {
+                loader.setLocation(MainApplication.class.getResource("../view/ApplicationWorker.fxml"));
+            } else if (activeUser.getAccountType() == AccountType.MANAGER){
+                loader.setLocation(MainApplication.class.getResource("../view/ApplicationManager.fxml"));
+            } else {
+                loader.setLocation(MainApplication.class.getResource("../view/ApplicationUser.fxml"));
+            }
             AnchorPane welcomeScreen = loader.load();
 
             ApplicationController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setActiveUser(Model.getInstance().getLoggedUser());
+            controller.setActiveUser(activeUser);
 
             mainScreen.setTitle("Welcome Screen");
 
@@ -340,6 +348,52 @@ public class MainApplication extends Application {
     }
 
     /**
+     * Opens a dialog to add a water quality report. If the user clicks SUBMIT
+     * and enters all the required data a new report is added to the system.
+     *
+     * @return true if the report was added, false otherwise.
+     */
+    public boolean showAddQualityReportDialog() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/SubmitQualityReportScreen.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("New Water Quality Report");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddQualityReportController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            controller.focus();
+
+
+            dialogStage.showAndWait();
+
+            if (controller.isReportAdded()) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initOwner(dialogStage);
+                alert.setHeaderText("Report Submitted Successfully!");
+
+                alert.showAndWait();
+            }
+
+            return controller.isReportAdded();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Setup the view of reports for an active user
      * Shown after clicking the Show My Reports button.
      *
@@ -351,6 +405,34 @@ public class MainApplication extends Application {
             AnchorPane reportListScreen = loader.load();
 
             WaterReportListController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+            mainScreen.setTitle("My Reports");
+
+            Scene scene = new Scene(reportListScreen);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+            controller.focus();
+
+        } catch (IOException e) {
+            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+        }
+    }
+
+    /**
+     * Setup the view of all quality reports in the system
+     * Shown after clicking the Show Quality Reports button.
+     *
+     */
+    public void showQualityReportListScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/QualityReportListScreen.fxml"));
+            AnchorPane reportListScreen = loader.load();
+
+            QualityReportListController controller = loader.getController();
             controller.setMainApp(this);
             controller.setActiveUser(Model.getInstance().getLoggedUser());
 

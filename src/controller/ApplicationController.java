@@ -85,9 +85,20 @@ public class ApplicationController {
         mainApplication.initMainLayout();
     }
 
+    /**
+     * Called when the user clicks add water source report.
+     */
     @FXML
     private void handleAddWaterReportPressed() {
         mainApplication.showAddWaterSourceReportDialog();
+    }
+
+    /**
+     * Called when the user clicks add water source report.
+     */
+    @FXML
+    private void handleAddQualityReportPressed() {
+        mainApplication.showAddQualityReportDialog();
     }
 
     /**
@@ -104,6 +115,14 @@ public class ApplicationController {
     @FXML
     private void handleViewReportsPressed() {
         mainApplication.showReportListScreen();
+    }
+
+    /**
+     * Called when the user clicks view my reports.
+     */
+    @FXML
+    private void handleViewQualityReportsPressed() {
+        mainApplication.showQualityReportListScreen();
     }
 
     /**

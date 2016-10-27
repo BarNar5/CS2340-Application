@@ -23,6 +23,9 @@ public class Model {
     /** a list of all the users */
     private final ObservableList<User> users = FXCollections.observableArrayList();
 
+    /** a list of all the reports */
+    private final ObservableList<Report> reports = FXCollections.observableArrayList();
+
     /** a list of all the water locations */
     private final List<Location> locations = new ArrayList<>();
 
@@ -38,8 +41,9 @@ public class Model {
      */
     private Model () {
         waterReportCounter = 10000000;
-        users.add(new User("Bartek", "qwerty"));
-        users.add(new User("a", "a"));
+        users.add(new User("u", "u", AccountType.USER));
+        users.add(new User("w", "w", AccountType.WORKER));
+        users.add(new User("m", "m", AccountType.MANAGER));
         User admin = new User("admin", "admin", AccountType.ADMIN);
         admin.setName("Admin Adminowicz");
         admin.setGender(Gender.Male);
@@ -107,7 +111,21 @@ public class Model {
         return users.add(user);
     }
 
+    public ObservableList<WaterQualityReport> getQualityReports() {
+        ObservableList<WaterQualityReport> list = FXCollections.observableArrayList();
+        for (Report report : reports) {
+            if (report instanceof WaterQualityReport) {
+                list.add((WaterQualityReport) report);
+            }
+        }
+        return list;
+    }
+
     public boolean addLocation(Location location) {
         return locations.add(location);
+    }
+
+    public boolean addReport(Report report) {
+        return reports.add(report);
     }
 }

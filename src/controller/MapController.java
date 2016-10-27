@@ -9,45 +9,58 @@ import fxapp.MainApplication;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
 
 import model.Model;
 import model.Location;
 
 import netscape.javascript.JSObject;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 /**
- * Created by robertwaters on 10/12/16.
+ * The controller for the map screen.
+ *
  */
 public class MapController implements Initializable, MapComponentInitializedListener {
 
+    /** a link back to the main application class */
+    private MainApplication mainApplication;
+
+
+    /** references to the widgets in the fxml file */
     @FXML
     private GoogleMapView mapView;
 
+
+    /** a GoogleMap object displayed in the window */
     private GoogleMap map;
 
-    private MainApplication mainApplication;
 
-    @FXML
-    private void initialize() {
-    }
-
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
     }
 
-    public void setMainApp(MainApplication app) {
-        mainApplication = app;
+    /**
+     * Setup the main application link.
+     *
+     * @param mainApplication  a reference (link) to our main class
+     */
+    public void setMainApp(MainApplication mainApplication) {
+        this.mainApplication = mainApplication;
     }
 
 
+    /**
+     * Initializes the map displayed on the screen.
+     */
     @Override
     public void mapInitialized() {
         MapOptions options = new MapOptions();
@@ -68,7 +81,7 @@ public class MapController implements Initializable, MapComponentInitializedList
         map = mapView.createMap(options);
 
 
-        /** now we communciate with the model to get all the locations for markers */
+        /** now we communicate with the model to get all the locations for markers */
         Model model = Model.getInstance();
         List<Location> locations = model.getLocations();
 
@@ -97,6 +110,9 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     }
 
+    /**
+     * Called when the user clicks close in the menu.
+     */
     @FXML
     public void onCloseMenu() {
         mainApplication.showApplicationScreen();

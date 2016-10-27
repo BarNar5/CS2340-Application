@@ -6,6 +6,10 @@ package model;
 public class Location {
 
 
+    /**
+     * Properties of a location.
+     *
+     */
     private final int id;
     private final double latitude;
     private final double longitude;
@@ -13,6 +17,13 @@ public class Location {
     private final String description;
 
 
+    /**
+     * Getters for all the properties.
+     *
+     */
+    public int getId() {
+        return id;
+    }
     public double getLongitude() {
         return longitude;
     }
@@ -27,6 +38,15 @@ public class Location {
     }
 
 
+    /**
+     * Create a new location.
+     *
+     * @param id the id of this location (corresponding to water report)
+     * @param lat latitude of this location
+     * @param lg longitude of this location
+     * @param ti title of this location
+     * @param desc description of this location
+     */
     public Location(int id, double lat, double lg, String ti, String desc) {
         this.id = id;
         latitude = lat;
@@ -35,11 +55,7 @@ public class Location {
         description = desc;
     }
 
-    public int getId() {
-        return id;
-    }
-
-
+    @Override
     public boolean equals(Object that) {
         if (that == null) {
             return false;

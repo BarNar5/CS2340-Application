@@ -15,10 +15,10 @@ import model.*;
 
 
 /**
- * The controller for the add water source report view.
+ * The controller for the add quality report view.
  *
  */
-public class AddWaterSourceReportController {
+public class AddQualityReportController {
 
     /** references to the widgets in the fxml file */
     @FXML
@@ -31,10 +31,13 @@ public class AddWaterSourceReportController {
     private TextField locationYField = new TextField();
 
     @FXML
-    private ComboBox<String> waterTypeField = new ComboBox<>();
+    private TextField virusPPM = new TextField();
 
     @FXML
-    private ComboBox<String> waterConditionField = new ComboBox<>();
+    private TextField contaminantPPM = new TextField();
+
+    @FXML
+    private ComboBox<String> overallConditionField = new ComboBox<>();
 
     @FXML
     private ComboBox<String> NS = new ComboBox<>();
@@ -84,29 +87,39 @@ public class AddWaterSourceReportController {
                 locationYField.setText(newValue);
             }
         });
+        virusPPM.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*\\.?\\d*")) {
+                    newValue = newValue.substring(0, newValue.length() - 1);
+                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
+                }
+                virusPPM.setText(newValue);
 
-        WaterType[] waterTypeValues = WaterType.values();
+            }
+        });
+        contaminantPPM.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*\\.?\\d*")) {
+                    newValue = newValue.substring(0, newValue.length() - 1);
+                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
+                }
+                contaminantPPM.setText(newValue);
 
-        String[] types = new String[waterTypeValues.length];
+            }
+        });
 
-        for (int i = 0; i < waterTypeValues.length; i++) {
-            types[i] = waterTypeValues[i].name();
-        }
-        ObservableList<String> typeOptions = FXCollections.observableArrayList(
-                types);
-        waterTypeField.getItems().addAll(typeOptions);
+        OverallCondition[] overallConditionValues = OverallCondition.values();
 
+        String[] conditions = new String[overallConditionValues.length];
 
-        WaterCondition[] waterConditionValues = WaterCondition.values();
-
-        String[] conditions = new String[waterConditionValues.length];
-
-        for (int i = 0; i < waterConditionValues.length; i++) {
-            conditions[i] = waterConditionValues[i].name();
+        for (int i = 0; i < overallConditionValues.length; i++) {
+            conditions[i] = overallConditionValues[i].name();
         }
         ObservableList<String> conditionOptions = FXCollections.observableArrayList(
                 conditions);
-        waterConditionField.getItems().addAll(conditionOptions);
+        overallConditionField.getItems().addAll(conditionOptions);
 
         String[] ns = {"N", "S"};
         ObservableList<String> nsOptions = FXCollections.observableArrayList(
@@ -169,8 +182,9 @@ public class AddWaterSourceReportController {
         if (locationNameField.getText().length() > 0
                 && locationXField.getText().length() > 0
                 && locationYField.getText().length() > 0
-                && waterTypeField.getValue() != null
-                && waterConditionField.getValue() != null) {
+                && virusPPM.getText().length() > 0
+                && contaminantPPM.getText().length() > 0
+                && overallConditionField.getValue() != null) {
 
             if (Double.valueOf(locationXField.getText()) <= 90
                     && Double.valueOf(locationYField.getText()) <= 180) {
@@ -182,11 +196,12 @@ public class AddWaterSourceReportController {
                 if (EW.getValue() == "W") {
                     ew *= -1;
                 }
-                activeUser.addWaterReport(Model.getInstance().getWaterReportCounter(),
-                        WaterType.valueOf(waterTypeField.getValue()),
-                        WaterCondition.valueOf(waterConditionField.getValue()),
+                activeUser.addQualityReport(Model.getInstance().getWaterReportCounter(),
+                        OverallCondition.valueOf(overallConditionField.getValue()),
                         locationNameField.getText(),
-                        ns, ew);
+                        ns, ew,
+                        Double.valueOf(virusPPM.getText()),
+                        Double.valueOf(contaminantPPM.getText()));
 
                 reportAdded = true;
                 dialogStage.close();
