@@ -118,11 +118,19 @@ public class ApplicationController {
     }
 
     /**
-     * Called when the user clicks view my reports.
+     * Called when the user clicks view quality reports.
      */
     @FXML
     private void handleViewQualityReportsPressed() {
         mainApplication.showQualityReportListScreen();
+    }
+
+    /**
+     * Called when the user clicks view quality graph.
+     */
+    @FXML
+    private void handleViewQualityGraphPressed() {
+        mainApplication.showGraphOptionsDialog();
     }
 
     /**

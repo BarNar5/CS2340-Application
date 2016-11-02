@@ -450,6 +450,38 @@ public class MainApplication extends Application {
     }
 
     /**
+     * Setup the view of all quality reports in the system
+     * Shown after clicking the Show Quality Reports button.
+     *
+     * @param year the year to get quality reports from
+     * @param virus whether to show virus PPM in the graph
+     * @param contaminant whether to show contaminant PPM in the graph
+     */
+    public void showQualityGraphScreen(int year, boolean virus, boolean contaminant) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/QualityGraphScreen.fxml"));
+            AnchorPane graphScreen = loader.load();
+
+            GraphController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setActiveUser(Model.getInstance().getLoggedUser());
+            controller.setGraphOptions(year, virus, contaminant);
+
+            mainScreen.setTitle("Quality Graph");
+
+            Scene scene = new Scene(graphScreen);
+            mainScreen.setScene(scene);
+            mainScreen.show();
+
+            controller.focus();
+
+        } catch (IOException e) {
+            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+        }
+    }
+
+    /**
      * Setup the map view
      * Shown after clicking the Show Map button.
      *
@@ -474,6 +506,43 @@ public class MainApplication extends Application {
 
         } catch (IOException e) {
             System.out.println("Failed to find the fxml file for MapScreen!!");
+        }
+    }
+
+    /**
+     * Opens a dialog to enter graph options. If the user clicks OK a map
+     * water quality chart is displayed based on the information entered
+     *
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showGraphOptionsDialog() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("../view/QualityGraphOptionsScreen.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Graph Options");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            GraphOptionsController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+
+            controller.focus();
+
+
+            dialogStage.showAndWait();
+
+            return controller.isSubmitted();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

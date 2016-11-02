@@ -121,6 +121,16 @@ public class Model {
         return list;
     }
 
+    public List<WaterQualityReport> getQualityReportsByYear(int year) {
+        List<WaterQualityReport> yearReports = new ArrayList<>();
+        for (Report report : reports) {
+            if (report instanceof WaterQualityReport && report.getDateYear() == year) {
+                yearReports.add((WaterQualityReport) report);
+            }
+        }
+        return yearReports;
+    }
+
     public boolean addLocation(Location location) {
         return locations.add(location);
     }
