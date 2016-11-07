@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * This enum represents a water type
  *
  */
 
-public enum WaterType {
+public enum WaterType implements Serializable {
     BOTTLED("Bottled"),
     WELL("Well"),
     STREAM("Stream"),

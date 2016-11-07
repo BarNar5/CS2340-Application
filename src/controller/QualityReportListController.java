@@ -2,11 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import fxapp.MainApplication;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -21,15 +17,13 @@ public class QualityReportListController {
     /** a link back to the main application class */
     private MainApplication mainApplication;
 
+
+    /** references to the widgets in the fxml file */
     @FXML
     private ListView<WaterQualityReport> reportList = new ListView<>();
 
     @FXML
     private AnchorPane anchorPane;
-
-
-    /** user currently logged in */
-    private User activeUser;
 
 
     /**
@@ -41,14 +35,6 @@ public class QualityReportListController {
         reportList.setItems(Model.getInstance().getQualityReports());
     }
 
-    /**
-     * Set the logged user and setup the profile information.
-     *
-     * @param user currently logged in user
-     */
-    public void setActiveUser(User user) {
-        activeUser = user;
-    }
 
     /**
      * Setup the main application link.

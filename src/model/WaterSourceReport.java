@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -8,14 +9,14 @@ import java.util.Calendar;
  * Information Holder
  */
 
-public class WaterSourceReport extends Report{
+public class WaterSourceReport extends Report implements Serializable {
 
     /**
      * Properties of a water source report.
      *
      */
 
-    private final int reportID;
+    private int reportID;
     private String reporterUserName;
     private int dateDay;
     private int dateMonth;
@@ -87,6 +88,10 @@ public class WaterSourceReport extends Report{
         this.locationY = y;
     }
 
+    public WaterSourceReport() {
+
+    }
+
     /**
      * Create a new water source report.
      *
@@ -104,7 +109,8 @@ public class WaterSourceReport extends Report{
 
     @Override
     public String toString() {
-        return locationName + " (" + reportID + ") on " + dateMonth + "/"
-                + dateDay + "/" + dateYear;
+        return "Water Source Report: " + locationName + " (" + reportID
+                + ") by " + reporterUserName
+                + " on " + dateMonth + "/" + dateDay + "/" + dateYear;
     }
 }

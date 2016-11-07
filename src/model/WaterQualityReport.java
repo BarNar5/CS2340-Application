@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -8,14 +9,14 @@ import java.util.Calendar;
  * Information Holder
  */
 
-public class WaterQualityReport extends Report {
+public class WaterQualityReport extends Report implements Serializable {
 
     /**
      * Properties of a water quality report.
      *
      */
 
-    private final int reportID;
+    private int reportID;
     private String reporterUserName;
     private int dateDay;
     private int dateMonth;
@@ -95,6 +96,10 @@ public class WaterQualityReport extends Report {
         this.contaminantPPM = y;
     }
 
+    public WaterQualityReport() {
+
+    }
+
     /**
      * Create a new water quality source report.
      *
@@ -112,7 +117,8 @@ public class WaterQualityReport extends Report {
 
     @Override
     public String toString() {
-        return locationName + " (" + reportID + ") on " + dateMonth + "/"
-                + dateDay + "/" + dateYear;
+        return "Water Quality Report: " + locationName + " (" + reportID
+                + ") by " + reporterUserName
+                + " on " + dateMonth + "/" + dateDay + "/" + dateYear;
     }
 }

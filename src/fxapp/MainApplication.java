@@ -1,16 +1,11 @@
 package fxapp;
 
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,8 +14,6 @@ import model.Model;
 import model.User;
 
 import controller.*;
-
-import netscape.javascript.JSObject;
 
 import java.io.IOException;
 
@@ -62,6 +55,7 @@ public class MainApplication extends Application {
 
             WelcomeScreenController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setMainStage(mainScreen);
 
             mainScreen.setTitle("Main Screen");
 
@@ -426,15 +420,15 @@ public class MainApplication extends Application {
      * Shown after clicking the Show Quality Reports button.
      *
      */
-    public void showQualityReportListScreen() {
-        try {
+    public void showQualityReportListScreen() throws IOException{
+//        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("../view/QualityReportListScreen.fxml"));
             AnchorPane reportListScreen = loader.load();
+            //System.out.println("WOWOWOWO");
 
             QualityReportListController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setActiveUser(Model.getInstance().getLoggedUser());
 
             mainScreen.setTitle("My Reports");
 
@@ -444,9 +438,9 @@ public class MainApplication extends Application {
 
             controller.focus();
 
-        } catch (IOException e) {
-            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
-        }
+//        } catch (IOException e) {
+//            System.out.println("Failed to find the fxml file for ReportList!!");
+//        }
     }
 
     /**
@@ -465,8 +459,8 @@ public class MainApplication extends Application {
 
             GraphController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setActiveUser(Model.getInstance().getLoggedUser());
             controller.setGraphOptions(year, virus, contaminant);
+
 
             mainScreen.setTitle("Quality Graph");
 
@@ -477,7 +471,7 @@ public class MainApplication extends Application {
             controller.focus();
 
         } catch (IOException e) {
-            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+            System.out.println("Failed to find the fxml file for QualityGraphScreen!!");
         }
     }
 

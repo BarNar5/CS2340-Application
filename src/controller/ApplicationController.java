@@ -11,6 +11,8 @@ import javafx.scene.text.TextAlignment;
 import model.Model;
 import model.User;
 
+import java.io.IOException;
+
 
 /**
  * The controller for the main application window.
@@ -81,7 +83,7 @@ public class ApplicationController {
      */
     @FXML
     private void handleSignOutPressed() {
-        Model.getInstance().setLoggedUser(new User());
+        Model.getInstance().setLoggedUser(new User(null, null));
         mainApplication.initMainLayout();
     }
 
@@ -121,7 +123,7 @@ public class ApplicationController {
      * Called when the user clicks view quality reports.
      */
     @FXML
-    private void handleViewQualityReportsPressed() {
+    private void handleViewQualityReportsPressed() throws IOException {
         mainApplication.showQualityReportListScreen();
     }
 

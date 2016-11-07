@@ -1,8 +1,13 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,38 +17,42 @@ import java.util.List;
  *
  */
 
-public class Model {
+public class Model implements Serializable {
 
     /** Set Model up as a singleton design pattern */
-    private static final Model instance = new Model();
+    private static Model instance = new Model();
     public static Model getInstance() {
         return instance;
     }
 
     /** a list of all the users */
-    private final ObservableList<User> users = FXCollections.observableArrayList();
+    private List<User> users = new ArrayList<>();
 
     /** a list of all the reports */
-    private final ObservableList<Report> reports = FXCollections.observableArrayList();
+    private List<Report> reports = new ArrayList<>();
 
     /** a list of all the water locations */
-    private final List<Location> locations = new ArrayList<>();
+    private List<Location> locations = new ArrayList<>();
 
     /** a user currently logged in */
     private User loggedUser;
 
-    private int waterReportCounter;
+    private Integer waterReportCounter;
 
 
     /**
      * Make a new Model.
-     * Fill it with some users for testing reasons.
+     * (Fill it with some users for testing reasons)
      */
     private Model () {
-        waterReportCounter = 10000000;
-        users.add(new User("u", "u", AccountType.USER));
-        users.add(new User("w", "w", AccountType.WORKER));
-        users.add(new User("m", "m", AccountType.MANAGER));
+        /*
+        waterReportCounter = 10000;
+        users.add(new User("user1", "u", AccountType.USER));
+        users.add(new User("user2", "u", AccountType.USER));
+        users.add(new User("worker1", "w", AccountType.WORKER));
+        users.add(new User("worker2", "w", AccountType.WORKER));
+        users.add(new User("manager1", "m", AccountType.MANAGER));
+        users.add(new User("manager2", "m", AccountType.MANAGER));
         User admin = new User("admin", "admin", AccountType.ADMIN);
         admin.setName("Admin Adminowicz");
         admin.setGender(Gender.Male);
@@ -56,8 +65,9 @@ public class Model {
         admin.setAddress2("Georgia Tech Dr 69");
         admin.setAddress3("Atlanta, GA 33333");
         users.add(admin);
-        Location l = new Location(1, 33.7756, -84.3963, "Test Marker", "<h2>Test </h2>  \nsome data");
-        locations.add(l);
+        //Location l = new Location(1, 33.7756, -84.3963, "Test Marker", "<h2>Test </h2>  \nsome data");
+        //locations.add(l);
+        */
     }
 
     /**
@@ -93,9 +103,14 @@ public class Model {
      * @return a list of users
      */
     public ObservableList<User> getUsers() {
-        return users;
+        return FXCollections.observableArrayList(users);
     }
 
+    /**
+     * Get a list of all locations.
+     *
+     * @return a list of users
+     */
     public List<Location> getLocations() {
         return locations;
     }
@@ -111,8 +126,14 @@ public class Model {
         return users.add(user);
     }
 
+    /**
+     * Get a list of all quality reports.
+     *
+     * @return a list of users
+     */
     public ObservableList<WaterQualityReport> getQualityReports() {
         ObservableList<WaterQualityReport> list = FXCollections.observableArrayList();
+        //System.out.println("WOWOWOWOWOW " + reports.get(0));
         for (Report report : reports) {
             if (report instanceof WaterQualityReport) {
                 list.add((WaterQualityReport) report);
@@ -121,6 +142,12 @@ public class Model {
         return list;
     }
 
+    /**
+     * Get a list of all quality reports from a given year.
+     *
+     * @param year a year to get reports from
+     * @return a list of users
+     */
     public List<WaterQualityReport> getQualityReportsByYear(int year) {
         List<WaterQualityReport> yearReports = new ArrayList<>();
         for (Report report : reports) {
@@ -131,10 +158,96 @@ public class Model {
         return yearReports;
     }
 
+    /**
+     * Save the data from the model to the file.
+     *
+     * @param file file to save the data to
+     */
+    public void saveToJson(File file) {
+        String str;
+        try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+//            Gson gson = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
+            Gson gson = gsonBuilder.create();
+
+            /*
+            str = gson.toJson(users);
+            pw.println(str);
+            str = gson.toJson(reports);
+            pw.println(str);
+            str = gson.toJson(locations);
+            pw.println(str);
+            str = gson.toJson(waterReportCounter);
+            pw.println(str);
+            pw.close();
+            */
+            str = gson.toJson(instance);
+            pw.println(str);
+
+        } catch (IOException e) {
+            System.out.println("Exception working with Json Save File");
+        }
+    }
+
+    /**
+     * Load the data from the file to the model.
+     *
+     * @param file file to load the data from
+     */
+    public void loadFromJson(File file) {
+        String ct;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            /*
+            Type userType = new TypeToken<List<User>>(){}.getType();
+            Type reportType = new TypeToken<List<Report>>(){}.getType();
+            Type locationType = new TypeToken<List<Location>>(){}.getType();
+            Type counterType = new TypeToken<Integer>(){}.getType();
+            //Gson gson = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
+            Gson gson = gsonBuilder.create();
+
+            ct = br.readLine();
+            users = gson.fromJson(ct, userType);
+            ct = br.readLine();
+            reports = gson.fromJson(ct, reportType);
+            ct = br.readLine();
+            locations = gson.fromJson(ct, locationType);
+            ct = br.readLine();
+            waterReportCounter = gson.fromJson(ct, counterType);
+            */
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
+            Gson gson = gsonBuilder.create();
+
+            Type modelType = new TypeToken<Model>(){}.getType();
+
+            ct = br.readLine();
+            instance = gson.fromJson(ct, modelType);
+
+            br.close();
+        } catch (IOException ex) {
+            System.out.println("Exception working with Json Load File");
+        }
+    }
+
+    /**
+     * add a new location to the model.
+     *
+     * @param location location to add
+     * @return true if location was successfully added
+     */
     public boolean addLocation(Location location) {
         return locations.add(location);
     }
 
+    /**
+     * add a new report to the model.
+     *
+     * @param report report to add
+     * @return true if report was successfully added
+     */
     public boolean addReport(Report report) {
         return reports.add(report);
     }

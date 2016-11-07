@@ -3,6 +3,7 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Information Holder
  */
 
-public class User {
+public class User implements Serializable {
 
     /**
      * Properties of a user.
@@ -32,7 +33,8 @@ public class User {
     private String address1;
     private String address2;
     private String address3;
-    private ObservableList<Report> waterReports;
+    //private ObservableList<Report> waterReports;
+    private List<Report> waterReports;
 
 
     /**
@@ -132,7 +134,7 @@ public class User {
     }
 
     public ObservableList<Report> getWaterReports() {
-        return waterReports;
+        return FXCollections.observableArrayList(waterReports);
     }
     /**
      * Create a new user.
@@ -145,7 +147,7 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.accountType = type;
-        waterReports = FXCollections.observableArrayList();
+        waterReports = new ArrayList<>();
     }
 
     /**
@@ -159,11 +161,9 @@ public class User {
     }
 
     /**
-     * No param constructor to use ONLY in login/register dialogs
-     *
+     * No arg constructor for JSON compatibility
      */
     public User() {
-        this("enter username", "enter password", AccountType.USER);
     }
 
     /**

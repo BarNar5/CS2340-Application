@@ -8,10 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import model.AccountType;
-import model.Model;
-import model.User;
-
 
 /**
  * The controller for the graph options dialog.

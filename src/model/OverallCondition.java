@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * This enum represents an overall water condition
  *
  */
 
-public enum OverallCondition {
+public enum OverallCondition implements Serializable {
     SAFE("Safe"),
     TREATABLE("Treatable"),
     UNSAFE("Unsafe");

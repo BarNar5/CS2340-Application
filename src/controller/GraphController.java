@@ -2,21 +2,15 @@ package controller;
 
 import javafx.fxml.FXML;
 import fxapp.MainApplication;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.List;
-import java.util.ArrayList;
 
 import model.Model;
-import model.Report;
-import model.User;
 import model.WaterQualityReport;
 
 
@@ -39,13 +33,21 @@ public class GraphController {
     private AnchorPane anchorPane;
 
 
-    /** user currently logged in */
-    private User activeUser;
-
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the constructor and after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
     }
 
+    /**
+     * Set the options used to display the graph.
+     *
+     * @param year the year of the reports to use in the graph
+     * @param virus true if virus PPM is to be displayed in the graph
+     * @param contaminant true if contaminant PPM is to be displayed in the graph
+     */
     public void setGraphOptions(int year, boolean virus, boolean contaminant) {
 
         ObservableList<XYChart.Series<String, Number>> lineChartData = FXCollections.observableArrayList();
@@ -134,14 +136,6 @@ public class GraphController {
         this.mainApplication = mainApplication;
     }
 
-    /**
-     * Set the logged user and setup the profile information.
-     *
-     * @param user currently logged in user
-     */
-    public void setActiveUser(User user) {
-        activeUser = user;
-    }
 
     /**
      * Sets the default focus of the window

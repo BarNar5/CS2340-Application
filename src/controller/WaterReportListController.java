@@ -3,15 +3,11 @@ package controller;
 import javafx.fxml.FXML;
 import fxapp.MainApplication;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
 import model.User;
-import model.WaterSourceReport;
 import model.Report;
 
 /**
@@ -49,7 +45,7 @@ public class WaterReportListController {
      */
     public void setActiveUser(User user) {
         activeUser = user;
-        reportList.setItems(user.getWaterReports());
+        reportList.setItems(FXCollections.observableArrayList(activeUser.getWaterReports()));
     }
 
     /**

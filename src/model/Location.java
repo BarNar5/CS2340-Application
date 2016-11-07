@@ -1,20 +1,22 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * A class to hold locations we want to display on the map
  */
-public class Location {
+public class Location implements Serializable {
 
 
     /**
      * Properties of a location.
      *
      */
-    private final int id;
-    private final double latitude;
-    private final double longitude;
-    private final String title;
-    private final String description;
+    private int id = 0;
+    private double latitude = 0;
+    private double longitude = 0;
+    private String title = null;
+    private String description = null;
 
 
     /**
@@ -37,6 +39,10 @@ public class Location {
         return title;
     }
 
+    /**
+     * No arg constructor for JSON compatibility
+     */
+    public Location() {}
 
     /**
      * Create a new location.
