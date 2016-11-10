@@ -41,7 +41,8 @@ public class MainApplication extends Application {
     }
 
     /**
-     * Initialize the main screen for the application and display the welcome view.
+     * Initialize the main screen for the application and display the
+     * welcome view.
      * Most other views will be shown in this screen.
      * This view is shown on the application startup.
      *
@@ -50,7 +51,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/WelcomeScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/WelcomeScreen.fxml"));
             mainLayout = loader.load();
 
             WelcomeScreenController controller = loader.getController();
@@ -80,11 +82,14 @@ public class MainApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             User activeUser = Model.getInstance().getLoggedUser();
             if (activeUser.getAccountType() == AccountType.WORKER) {
-                loader.setLocation(MainApplication.class.getResource("../view/ApplicationWorker.fxml"));
-            } else if (activeUser.getAccountType() == AccountType.MANAGER){
-                loader.setLocation(MainApplication.class.getResource("../view/ApplicationManager.fxml"));
+                loader.setLocation(MainApplication.class.
+                    getResource("../view/ApplicationWorker.fxml"));
+            } else if (activeUser.getAccountType() == AccountType.MANAGER) {
+                loader.setLocation(MainApplication.class.
+                    getResource("../view/ApplicationManager.fxml"));
             } else {
-                loader.setLocation(MainApplication.class.getResource("../view/ApplicationUser.fxml"));
+                loader.setLocation(MainApplication.class.
+                    getResource("../view/ApplicationUser.fxml"));
             }
             AnchorPane welcomeScreen = loader.load();
 
@@ -101,12 +106,14 @@ public class MainApplication extends Application {
             controller.focus();
 
         } catch (IOException e) {
-            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+            System.out.
+                println("Failed to find the fxml file for WelcomeScreen!!");
         }
     }
 
     /**
-     * Opens a dialog to login. If the user clicks SUBMIT and authentication is successful
+     * Opens a dialog to login. If the user clicks SUBMIT and authentication
+     * is successful
      * the user is logged in to the application.
      *
      * @param user the user object to be edited
@@ -115,7 +122,8 @@ public class MainApplication extends Application {
     public boolean showLoginDialog(User user) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/LoginScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/LoginScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -143,7 +151,8 @@ public class MainApplication extends Application {
     }
 
     /**
-     * Opens a dialog to register. If the user clicks SUBMIT and username is valid
+     * Opens a dialog to register. If the user clicks SUBMIT
+     * and username is valid
      * a new user is added to the list of registered users.
      *
      * @param user the user object to be edited
@@ -153,7 +162,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/RegisterScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/RegisterScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -200,7 +210,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/ChangePasswordScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/ChangePasswordScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -246,7 +257,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/ProfileScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/ProfileScreen.fxml"));
             AnchorPane profileScreen = loader.load();
 
             ProfileScreenController controller = loader.getController();
@@ -275,7 +287,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/EditProfileScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/EditProfileScreen.fxml"));
             AnchorPane editProfile = loader.load();
 
             EditProfileController controller = loader.getController();
@@ -305,7 +318,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/SubmitReportScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/SubmitReportScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -351,7 +365,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/SubmitQualityReportScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/SubmitQualityReportScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -395,7 +410,8 @@ public class MainApplication extends Application {
     public void showReportListScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/ReportListScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/ReportListScreen.fxml"));
             AnchorPane reportListScreen = loader.load();
 
             WaterReportListController controller = loader.getController();
@@ -411,7 +427,8 @@ public class MainApplication extends Application {
             controller.focus();
 
         } catch (IOException e) {
-            System.out.println("Failed to find the fxml file for WelcomeScreen!!");
+            System.out.
+                println("Failed to find the fxml file for WelcomeScreen!!");
         }
     }
 
@@ -423,7 +440,8 @@ public class MainApplication extends Application {
     public void showQualityReportListScreen() throws IOException{
 //        try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/QualityReportListScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/QualityReportListScreen.fxml"));
             AnchorPane reportListScreen = loader.load();
             //System.out.println("WOWOWOWO");
 
@@ -451,10 +469,12 @@ public class MainApplication extends Application {
      * @param virus whether to show virus PPM in the graph
      * @param contaminant whether to show contaminant PPM in the graph
      */
-    public void showQualityGraphScreen(int year, boolean virus, boolean contaminant) {
+    public void showQualityGraphScreen(int year, boolean virus,
+        boolean contaminant) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/QualityGraphScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/QualityGraphScreen.fxml"));
             AnchorPane graphScreen = loader.load();
 
             GraphController controller = loader.getController();
@@ -484,7 +504,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/MapScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                getResource("../view/MapScreen.fxml"));
             AnchorPane mapScreen = loader.load();
 
 
