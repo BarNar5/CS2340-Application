@@ -37,7 +37,7 @@ public class Model implements Serializable {
     /** a user currently logged in */
     private User loggedUser;
 
-    private Integer waterReportCounter;
+    private Integer waterReportCounter = 10000;
 
 
     /**
