@@ -120,7 +120,7 @@ public class Model implements Serializable {
     /**
      * Get a list of all locations.
      *
-     * @return a list of users
+     * @return a list of locations
      */
     public List<Location> getLocations() {
         return locations;
