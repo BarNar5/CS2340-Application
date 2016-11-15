@@ -34,5 +34,11 @@ public class AddLocationTest {
 		}
 		assertEquals(locations, test.getLocations());
 	}
+	
+	@org.junit.Test
+	public void falseTest() {
+		Model test = Model.getInstance();
+		assertEquals(test.addLocation(null), false);
+	}
 
 }

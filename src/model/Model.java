@@ -214,6 +214,9 @@ public class Model implements Serializable {
      * @return true if location was successfully added
      */
     public boolean addLocation(Location location) {
+    	if (location == null) {
+    		return false;
+    	}
         return locations.add(location);
     }
 
