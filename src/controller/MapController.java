@@ -3,7 +3,14 @@ package controller;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 
 import fxapp.MainApplication;
 
@@ -24,7 +31,8 @@ import java.util.ResourceBundle;
  * The controller for the map screen.
  *
  */
-public class MapController implements Initializable, MapComponentInitializedListener {
+public class MapController implements Initializable,
+        MapComponentInitializedListener {
 
     /** a link back to the main application class */
     private MainApplication mainApplication;
@@ -81,7 +89,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         map = mapView.createMap(options);
 
 
-        /** now we communicate with the model to get all the locations for markers */
+        /** now we communicate with the model to get all
+         * the locations for markers */
         Model model = Model.getInstance();
         List<Location> locations = model.getLocations();
 
@@ -96,14 +105,15 @@ public class MapController implements Initializable, MapComponentInitializedList
             Marker marker = new Marker(markerOptions);
 
             map.addUIEventHandler(marker,
-                    UIEventType.click,
-                    (JSObject obj) -> {
-                        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                        infoWindowOptions.content(l.getDescription());
+                UIEventType.click,
+                (JSObject obj) -> {
+                    InfoWindowOptions infoWindowOptions =
+                        new InfoWindowOptions();
+                    infoWindowOptions.content(l.getDescription());
 
-                        InfoWindow window = new InfoWindow(infoWindowOptions);
-                        window.open(map, marker);
-                    });
+                    InfoWindow window = new InfoWindow(infoWindowOptions);
+                    window.open(map, marker);
+                });
 
             map.addMarker(marker);
         }

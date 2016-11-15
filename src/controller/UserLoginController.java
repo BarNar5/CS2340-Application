@@ -44,10 +44,12 @@ public class UserLoginController {
      * Initializes the controller class. This method is automatically called
      * after the constructor and after the fxml file has been loaded.
      */
+    /*
     @FXML
     private void initialize() {
 
     }
+    */
 
     /**
      * Sets the stage of this dialog.

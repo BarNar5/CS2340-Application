@@ -12,8 +12,12 @@ public enum OverallCondition implements Serializable {
     TREATABLE("Treatable"),
     UNSAFE("Unsafe");
 
-    private String condition;
+    private final String condition;
 
+    /**
+     * Constructor for this enum.
+     * @param condition the string representing the condition
+     */
     OverallCondition(String condition) {
         this.condition = condition;
     }

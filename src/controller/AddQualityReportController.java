@@ -8,10 +8,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-import model.*;
+import model.User;
+import model.OverallCondition;
+import model.Model;
 
 
 /**
@@ -20,7 +21,7 @@ import model.*;
  */
 public class AddQualityReportController {
 
-    /** references to the widgets in the fxml file */
+    /** references to the widgets in the fxml file. */
     @FXML
     private TextField locationNameField = new TextField();
 
@@ -49,13 +50,13 @@ public class AddQualityReportController {
     private AnchorPane anchorPane;
 
 
-    /** the window for this dialog */
+    /** the window for this dialog .*/
     private Stage dialogStage;
 
-    /** user currently logged in */
+    /** user currently logged in. */
     private User activeUser;
 
-    /** flag to signal whether user successfully added a report */
+    /** flag to signal whether user successfully added a report. */
     private boolean reportAdded = false;
 
     /**
@@ -66,50 +67,42 @@ public class AddQualityReportController {
     private void initialize() {
 
         //Make location fields accept only non-negative doubles
-        locationXField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                locationXField.setText(newValue);
-
+        locationXField.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            locationXField.setText(newValue);
         });
-        locationYField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                locationYField.setText(newValue);
+        locationYField.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            locationYField.setText(newValue);
         });
-        virusPPM.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                virusPPM.setText(newValue);
-
+        virusPPM.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            virusPPM.setText(newValue);
         });
-        contaminantPPM.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                contaminantPPM.setText(newValue);
-
+        contaminantPPM.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            contaminantPPM.setText(newValue);
         });
-
         OverallCondition[] overallConditionValues = OverallCondition.values();
 
         String[] conditions = new String[overallConditionValues.length];
@@ -117,8 +110,8 @@ public class AddQualityReportController {
         for (int i = 0; i < overallConditionValues.length; i++) {
             conditions[i] = overallConditionValues[i].name();
         }
-        ObservableList<String> conditionOptions = FXCollections.observableArrayList(
-                conditions);
+        ObservableList<String> conditionOptions =
+                FXCollections.observableArrayList(conditions);
         overallConditionField.getItems().addAll(conditionOptions);
 
         String[] ns = {"N", "S"};
@@ -143,7 +136,7 @@ public class AddQualityReportController {
      *
      * @param dialogStage the stage for this dialog
      */
-    public void setDialogStage(Stage dialogStage) {
+    public final void setDialogStage(final Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
@@ -190,15 +183,16 @@ public class AddQualityReportController {
                     && Double.valueOf(locationYField.getText()) <= 180) {
                 Double ns = Double.valueOf(locationXField.getText());
                 Double ew = Double.valueOf(locationYField.getText());
-                if (NS.getValue() == "S") {
+                if ("S".equals(NS.getValue())) {
                     ns *= -1;
                 }
-                if (EW.getValue() == "W") {
+                if ("W".equals(EW.getValue())) {
                     ew *= -1;
                 }
-                activeUser.addQualityReport(Model.getInstance().getWaterReportCounter(),
-                        OverallCondition.valueOf(overallConditionField.getValue()),
-                        locationNameField.getText(),
+                activeUser.addQualityReport(Model.getInstance().
+                        getWaterReportCounter(),
+                        OverallCondition.valueOf(overallConditionField.
+                        getValue()), locationNameField.getText(),
                         ns, ew,
                         Double.valueOf(virusPPM.getText()),
                         Double.valueOf(contaminantPPM.getText()));
@@ -210,7 +204,8 @@ public class AddQualityReportController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(dialogStage);
                 alert.setTitle("Invalid Data");
-                alert.setHeaderText("The location coordinates entered are incorrect");
+                alert.setHeaderText("The location coordinates "
+                        + "entered are incorrect");
                 alert.setContentText("Please input correct coordinates");
 
                 alert.showAndWait();
@@ -221,7 +216,8 @@ public class AddQualityReportController {
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Data");
             alert.setHeaderText("All the fields must be filled");
-            alert.setContentText("Please fill all the fields to submit a water report");
+            alert.setContentText("Please fill all the fields to submit"
+                    + "a water report");
 
             alert.showAndWait();
         }

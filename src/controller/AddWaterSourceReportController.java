@@ -8,10 +8,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-import model.*;
+import model.User;
+import model.WaterType;
+import model.WaterCondition;
+import model.Model;
 
 
 /**
@@ -63,26 +65,23 @@ public class AddWaterSourceReportController {
     private void initialize() {
 
         //Make location fields accept only non-negative doubles
-        locationXField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                locationXField.setText(newValue);
-
+        locationXField.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            locationXField.setText(newValue);
         });
-        locationYField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*\\.?\\d*")) {
-                    newValue = newValue.substring(0, newValue.length() - 1);
-                    newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
-                }
-                locationYField.setText(newValue);
+        locationYField.textProperty().addListener((ObservableValue
+            <? extends String> observable, String oldValue, String newValue)
+            -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                newValue = newValue.substring(0, newValue.length() - 1);
+                newValue = newValue.replaceAll("[^(\\d|\\.)]", "");
             }
+            locationYField.setText(newValue);
         });
 
         WaterType[] waterTypeValues = WaterType.values();
@@ -104,19 +103,19 @@ public class AddWaterSourceReportController {
         for (int i = 0; i < waterConditionValues.length; i++) {
             conditions[i] = waterConditionValues[i].name();
         }
-        ObservableList<String> conditionOptions = FXCollections.observableArrayList(
-                conditions);
+        ObservableList<String> conditionOptions =
+                FXCollections.observableArrayList(conditions);
         waterConditionField.getItems().addAll(conditionOptions);
 
         String[] ns = {"N", "S"};
-        ObservableList<String> nsOptions = FXCollections.observableArrayList(
-                ns);
+        ObservableList<String> nsOptions =
+                FXCollections.observableArrayList(ns);
         NS.getItems().addAll(nsOptions);
         NS.setValue("N");
 
         String[] ew = {"E", "W"};
-        ObservableList<String> ewOptions = FXCollections.observableArrayList(
-                ew);
+        ObservableList<String> ewOptions =
+                FXCollections.observableArrayList(ew);
         EW.getItems().addAll(ewOptions);
         EW.setValue("E");
 
@@ -176,13 +175,14 @@ public class AddWaterSourceReportController {
                     && Double.valueOf(locationYField.getText()) <= 180) {
                 Double ns = Double.valueOf(locationXField.getText());
                 Double ew = Double.valueOf(locationYField.getText());
-                if (NS.getValue() == "S") {
+                if ("S".equals(NS.getValue())) {
                     ns *= -1;
                 }
-                if (EW.getValue() == "W") {
+                if ("W".equals(EW.getValue())) {
                     ew *= -1;
                 }
-                activeUser.addWaterReport(Model.getInstance().getWaterReportCounter(),
+                activeUser.addWaterReport(Model.getInstance().
+                        getWaterReportCounter(),
                         WaterType.valueOf(waterTypeField.getValue()),
                         WaterCondition.valueOf(waterConditionField.getValue()),
                         locationNameField.getText(),
@@ -195,7 +195,8 @@ public class AddWaterSourceReportController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(dialogStage);
                 alert.setTitle("Invalid Data");
-                alert.setHeaderText("The location coordinates entered are incorrect");
+                alert.setHeaderText("The location coordinates entered"
+                        + " are incorrect");
                 alert.setContentText("Please input correct coordinates");
 
                 alert.showAndWait();
@@ -206,7 +207,8 @@ public class AddWaterSourceReportController {
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Data");
             alert.setHeaderText("All the fields must be filled");
-            alert.setContentText("Please fill all the fields to submit a water report");
+            alert.setContentText("Please fill all the fields to "
+                    + "submit a water report");
 
             alert.showAndWait();
         }

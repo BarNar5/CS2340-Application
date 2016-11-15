@@ -11,8 +11,6 @@ import javafx.scene.text.TextAlignment;
 import model.Model;
 import model.User;
 
-import java.io.IOException;
-
 
 /**
  * The controller for the main application window.
@@ -50,6 +48,7 @@ public class ApplicationController {
         welcomeMessage.setText("Welcome!");
         welcomeMessage.setTextAlignment(TextAlignment.CENTER);
         welcomeHBox.setAlignment(Pos.CENTER);
+        activeUser = new User();
     }
 
     /**
@@ -123,7 +122,7 @@ public class ApplicationController {
      * Called when the user clicks view quality reports.
      */
     @FXML
-    private void handleViewQualityReportsPressed() throws IOException {
+    private void handleViewQualityReportsPressed() {
         mainApplication.showQualityReportListScreen();
     }
 

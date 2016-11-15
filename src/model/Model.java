@@ -6,37 +6,47 @@ import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.Serializable;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class serves as a Facade into the application model
  * Right now it is a Singleton so the controllers can get access easily.
  *
  */
-
 public class Model implements Serializable {
 
     /** Set Model up as a singleton design pattern */
     private static Model instance = new Model();
+    /** Get an instance of this singleton
+     * @return this singleton
+     */
     public static Model getInstance() {
         return instance;
     }
 
     /** a list of all the users */
-    private List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 
     /** a list of all the reports */
-    private List<Report> reports = new ArrayList<>();
+    private final List<Report> reports = new ArrayList<>();
 
     /** a list of all the water locations */
-    private List<Location> locations = new ArrayList<>();
+    private final List<Location> locations = new ArrayList<>();
 
     /** a user currently logged in */
     private User loggedUser;
 
+    /** a count for water report id*/
     private Integer waterReportCounter = 10000;
 
 
@@ -44,7 +54,7 @@ public class Model implements Serializable {
      * Make a new Model.
      * (Fill it with some users for testing reasons)
      */
-    private Model () {
+    private Model() {
         /*
         waterReportCounter = 10000;
         users.add(new User("user1", "u", AccountType.USER));
@@ -54,7 +64,7 @@ public class Model implements Serializable {
         users.add(new User("manager1", "m", AccountType.MANAGER));
         users.add(new User("manager2", "m", AccountType.MANAGER));
         User admin = new User("admin", "admin", AccountType.ADMIN);
-        admin.setName("Admin Adminowicz");
+        admin.setName("Admin Admin");
         admin.setGender(Gender.Male);
         admin.setDateDay("01");
         admin.setDateMonth("01");
@@ -65,7 +75,8 @@ public class Model implements Serializable {
         admin.setAddress2("Georgia Tech Dr 69");
         admin.setAddress3("Atlanta, GA 33333");
         users.add(admin);
-        //Location l = new Location(1, 33.7756, -84.3963, "Test Marker", "<h2>Test </h2>  \nsome data");
+        //Location l = new Location(1, 33.7756, -84.3963,
+            "Test Marker", "<h2>Test </h2>  \n some data");
         //locations.add(l);
         */
     }
@@ -132,13 +143,11 @@ public class Model implements Serializable {
      * @return a list of users
      */
     public ObservableList<WaterQualityReport> getQualityReports() {
-        ObservableList<WaterQualityReport> list = FXCollections.observableArrayList();
-        //System.out.println("WOWOWOWOWOW " + reports.get(0));
-        for (Report report : reports) {
-            if (report instanceof WaterQualityReport) {
-                list.add((WaterQualityReport) report);
-            }
-        }
+        ObservableList<WaterQualityReport> list =
+            FXCollections.observableArrayList();
+        list.addAll(reports.stream().filter(report -> report
+            instanceof WaterQualityReport).map(report ->
+            (WaterQualityReport) report).collect(Collectors.toList()));
         return list;
     }
 
@@ -149,13 +158,10 @@ public class Model implements Serializable {
      * @return a list of users
      */
     public List<WaterQualityReport> getQualityReportsByYear(int year) {
-        List<WaterQualityReport> yearReports = new ArrayList<>();
-        for (Report report : reports) {
-            if (report instanceof WaterQualityReport && report.getDateYear() == year) {
-                yearReports.add((WaterQualityReport) report);
-            }
-        }
-        return yearReports;
+        return reports.stream().filter(report -> report
+            instanceof WaterQualityReport && report.getDateYear() == year).
+            map(report -> (WaterQualityReport) report).
+            collect(Collectors.toList());
     }
 
     /**
@@ -166,22 +172,10 @@ public class Model implements Serializable {
     public void saveToJson(File file) {
         String str;
         try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
-//            Gson gson = new Gson();
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
             Gson gson = gsonBuilder.create();
 
-            /*
-            str = gson.toJson(users);
-            pw.println(str);
-            str = gson.toJson(reports);
-            pw.println(str);
-            str = gson.toJson(locations);
-            pw.println(str);
-            str = gson.toJson(waterReportCounter);
-            pw.println(str);
-            pw.close();
-            */
             str = gson.toJson(instance);
             pw.println(str);
 
@@ -198,30 +192,11 @@ public class Model implements Serializable {
     public void loadFromJson(File file) {
         String ct;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            /*
-            Type userType = new TypeToken<List<User>>(){}.getType();
-            Type reportType = new TypeToken<List<Report>>(){}.getType();
-            Type locationType = new TypeToken<List<Location>>(){}.getType();
-            Type counterType = new TypeToken<Integer>(){}.getType();
-            //Gson gson = new Gson();
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
             Gson gson = gsonBuilder.create();
 
-            ct = br.readLine();
-            users = gson.fromJson(ct, userType);
-            ct = br.readLine();
-            reports = gson.fromJson(ct, reportType);
-            ct = br.readLine();
-            locations = gson.fromJson(ct, locationType);
-            ct = br.readLine();
-            waterReportCounter = gson.fromJson(ct, counterType);
-            */
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(Report.class, new ReportAdapter());
-            Gson gson = gsonBuilder.create();
-
-            Type modelType = new TypeToken<Model>(){}.getType();
+            Type modelType = new TypeToken<Model>() { }.getType();
 
             ct = br.readLine();
             instance = gson.fromJson(ct, modelType);

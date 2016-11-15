@@ -183,16 +183,17 @@ public class User implements Serializable {
             return false;
         }
         User user = (User) that;
-        return userName.equals(user.getUserName()) && password.equals(user.getPassword());
+        return userName.equals(user.getUserName())
+            && password.equals(user.getPassword());
     }
 
     /**
-     * compares if this user has the same name as a passed object
+     * compares if this user has the same username as a passed object
      *
      * @param that Object to compare to
-     * @return true if two users have the same name
+     * @return true if two users have the same username
      */
-    public boolean equalName(Object that) {
+    public boolean equalUsername(Object that) {
         if (that == null) {
             return false;
         }
@@ -235,7 +236,8 @@ public class User implements Serializable {
 
         String str = "<h2>" + locationName + "</h2>"
                 + waterType + "<br>" + waterCondition;
-        Location location = new Location(reportID, locationX, locationY, locationName, str);
+        Location location = new Location(reportID,
+            locationX, locationY, locationName, str);
         Model.getInstance().addLocation(location);
     }
 
@@ -247,6 +249,8 @@ public class User implements Serializable {
      * @param locationName new report's location name
      * @param locationX new report's NS location
      * @param locationY new report's EW location
+     * @param virusPPM new report's virus PPM
+     * @param contaminantPPM new report's contaminant PPM
      */
     public void addQualityReport(int reportID,
                                  OverallCondition overallCondition,
@@ -270,7 +274,8 @@ public class User implements Serializable {
         String str = "<h2>" + locationName + "</h2>"
                 + overallCondition + "<br>Virus PPM: " + virusPPM
                 + "<br>Contaminant PPM: " + contaminantPPM;
-        Location location = new Location(reportID, locationX, locationY, locationName, str);
+        Location location = new Location(reportID,
+            locationX, locationY, locationName, str);
         Model.getInstance().addLocation(location);
     }
 

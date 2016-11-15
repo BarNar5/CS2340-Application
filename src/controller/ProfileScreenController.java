@@ -61,7 +61,7 @@ public class ProfileScreenController {
      */
     @FXML
     private void initialize() {
-
+        activeUser = new User();
     }
 
     /**
@@ -80,16 +80,18 @@ public class ProfileScreenController {
      */
     public void setActiveUser(User user) {
         activeUser = user;
-        nameLabel.setText(user.getName());
+        nameLabel.setText(activeUser.getName());
         accountTypeLabel.setText(user.getAccountType().toString());
         if (user.getGender() != null) {
             genderLabel.setText(user.getGender().toString());
         }
-        if (user.getDateYear() != null && user.getDateDay() != null && user.getDateMonth() != null) {
-            dateLabel.setText((user.getDateMonth() + "/" + user.getDateDay() + "/" + user.getDateYear()));
+        if (user.getDateYear() != null && user.getDateDay()
+                != null && user.getDateMonth() != null) {
+            dateLabel.setText((user.getDateMonth() + "/"
+                    + user.getDateDay() + "/" + user.getDateYear()));
         }
         if (user.getPhoneNumber() != null) {
-            phoneLabel.setText(user.getPhoneNumber().toString());
+            phoneLabel.setText(user.getPhoneNumber());
         }
         emailLabel.setText(user.getEmail());
         address1Label.setText(user.getAddress1());

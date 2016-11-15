@@ -42,10 +42,12 @@ public class ChangePasswordController {
      * Initializes the controller class. This method is automatically called
      * after the constructor and after the fxml file has been loaded.
      */
+    /*
     @FXML
     private void initialize() {
 
     }
+    */
 
     /**
      * Sets the stage of this dialog.
@@ -64,7 +66,9 @@ public class ChangePasswordController {
     public void setUser(User user) {
         this.activeUser = user;
 
-        if (activeUser == null) System.out.println("User was null in login!");
+        if (activeUser == null) {
+            System.out.println("User was null in login!");
+        }
 
         oldPasswordField.setPromptText("old password");
         newPasswordField.setPromptText("new password");
@@ -92,7 +96,8 @@ public class ChangePasswordController {
     @FXML
     private void handleSubmitPressed() {
 
-        if (isInputValid(activeUser.getUserName(), oldPasswordField.getText())) {
+        if (isInputValid(activeUser.getUserName(),
+                oldPasswordField.getText())) {
 
             activeUser.setPassword(newPasswordField.getText());
 
@@ -127,12 +132,8 @@ public class ChangePasswordController {
      * @return true if the input is valid
      */
     private boolean isInputValid(String name, String password) {
-
         User tempUser = new User(name, password);
-        if (activeUser.equals(tempUser)) {
-            return true;
-        }
-        return false;
+        return activeUser.equals(tempUser);
     }
 
 }

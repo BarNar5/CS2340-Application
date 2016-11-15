@@ -6,7 +6,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 
-import model.*;
+import model.WaterQualityReport;
+import model.Model;
 
 /**
  * The controller for the quality report list view.

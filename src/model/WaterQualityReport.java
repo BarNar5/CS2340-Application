@@ -96,6 +96,9 @@ public class WaterQualityReport extends Report implements Serializable {
         this.contaminantPPM = y;
     }
 
+    /**
+     * No arg constructor for gson compatibility.
+     */
     public WaterQualityReport() {
 
     }

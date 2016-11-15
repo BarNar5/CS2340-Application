@@ -13,7 +13,20 @@ import model.AccountType;
 import model.Model;
 import model.User;
 
-import controller.*;
+import controller.WelcomeScreenController;
+import controller.ApplicationController;
+import controller.UserRegisterController;
+import controller.UserLoginController;
+import controller.ChangePasswordController;
+import controller.AddWaterSourceReportController;
+import controller.AddQualityReportController;
+import controller.EditProfileController;
+import controller.GraphController;
+import controller.GraphOptionsController;
+import controller.MapController;
+import controller.ProfileScreenController;
+import controller.QualityReportListController;
+import controller.WaterReportListController;
 
 import java.io.IOException;
 
@@ -30,9 +43,6 @@ public class MainApplication extends Application {
 
     /** the main container for the application window */
     private Stage mainScreen;
-
-    /** the main layout for the main window */
-    private AnchorPane mainLayout;
 
     @Override
     public void start(Stage primaryStage) {
@@ -53,7 +63,7 @@ public class MainApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.
                 getResource("../view/WelcomeScreen.fxml"));
-            mainLayout = loader.load();
+            AnchorPane mainLayout = loader.load();
 
             WelcomeScreenController controller = loader.getController();
             controller.setMainApp(this);
@@ -437,13 +447,12 @@ public class MainApplication extends Application {
      * Shown after clicking the Show Quality Reports button.
      *
      */
-    public void showQualityReportListScreen() throws IOException{
-//        try {
+    public void showQualityReportListScreen() {
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.
                 getResource("../view/QualityReportListScreen.fxml"));
             AnchorPane reportListScreen = loader.load();
-            //System.out.println("WOWOWOWO");
 
             QualityReportListController controller = loader.getController();
             controller.setMainApp(this);
@@ -456,9 +465,9 @@ public class MainApplication extends Application {
 
             controller.focus();
 
-//        } catch (IOException e) {
-//            System.out.println("Failed to find the fxml file for ReportList!!");
-//        }
+        } catch (IOException e) {
+            System.out.println("Failed to find the fxml file for ReportList!!");
+        }
     }
 
     /**
@@ -491,7 +500,8 @@ public class MainApplication extends Application {
             controller.focus();
 
         } catch (IOException e) {
-            System.out.println("Failed to find the fxml file for QualityGraphScreen!!");
+            System.out.println("Failed to find the fxml file for "
+                    + "QualityGraphScreen!!");
         }
     }
 
@@ -534,7 +544,8 @@ public class MainApplication extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("../view/QualityGraphOptionsScreen.fxml"));
+            loader.setLocation(MainApplication.class.
+                    getResource("../view/QualityGraphOptionsScreen.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -561,6 +572,11 @@ public class MainApplication extends Application {
         }
     }
 
+    /**
+     * Main method for application to run.
+     *
+     * @param args arguments passed in
+     */
     public static void main(String[] args) {
         System.setProperty("java.net.useSystemProxies", "true");
         launch(args);

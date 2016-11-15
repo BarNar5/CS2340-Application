@@ -15,8 +15,12 @@ public enum WaterType implements Serializable {
     SPRING("Spring"),
     OTHER("Other");
 
-    private String type;
+    private final String type;
 
+    /**
+     * Constructor for this enum.
+     * @param type the string representing the type
+     */
     WaterType(String type) {
         this.type = type;
     }

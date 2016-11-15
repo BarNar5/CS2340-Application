@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 /**
- * This enum represents an account type of a user
+ * This enum represents an account type of a user.
  *
  */
 

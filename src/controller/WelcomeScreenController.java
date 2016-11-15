@@ -34,10 +34,12 @@ public class WelcomeScreenController {
      * Initializes the controller class. This method is automatically called
      * after the constructor and after the fxml file has been loaded.
      */
+    /*
     @FXML
     private void initialize() {
 
     }
+    */
 
     /**
      * Setup the main application link.
@@ -50,7 +52,7 @@ public class WelcomeScreenController {
 
     /**
      * Setup the main stage for this view.
-     * @param mainStage
+     * @param mainStage the main stage for this view
      */
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
@@ -69,7 +71,8 @@ public class WelcomeScreenController {
     @FXML
     public void loginPressed() {
 
-        User tempUser = new User("enter username", "enter password", AccountType.USER);
+        User tempUser = new User("enter username",
+            "enter password", AccountType.USER);
         boolean okClicked = mainApplication.showLoginDialog(tempUser);
         if (okClicked) {
             //Model.getInstance().setLoggedUser(tempUser);
@@ -84,7 +87,8 @@ public class WelcomeScreenController {
     @FXML
     public void registerPressed() {
 
-        User tempUser = new User("enter username", "enter password", AccountType.USER);
+        User tempUser = new User("enter username",
+            "enter password", AccountType.USER);
         boolean okClicked = mainApplication.showRegisterDialog(tempUser);
         if (okClicked) {
             Model.getInstance().addUser(tempUser);
@@ -100,19 +104,21 @@ public class WelcomeScreenController {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open JSON File");
         File file  = fc.showOpenDialog(mainStage);
-        if (file != null)
+        if (file != null) {
             Model.getInstance().loadFromJson(file);
+        }
     }
 
     /**
-     * Called when the user clicks sava data.
+     * Called when the user clicks save data.
      */
     @FXML
     public void onSaveData() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save JSON File");
         File file  = fc.showSaveDialog(mainStage);
-        if (file != null)
+        if (file != null) {
             Model.getInstance().saveToJson(file);
+        }
     }
 }

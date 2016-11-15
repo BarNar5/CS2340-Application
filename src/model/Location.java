@@ -22,6 +22,7 @@ public class Location implements Serializable {
     /**
      * Getters for all the properties.
      *
+     * @return Locations ID
      */
     public int getId() {
         return id;
@@ -42,7 +43,7 @@ public class Location implements Serializable {
     /**
      * No arg constructor for JSON compatibility
      */
-    public Location() {}
+    public Location() { }
 
     /**
      * Create a new location.

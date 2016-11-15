@@ -114,7 +114,8 @@ public class UserRegisterController {
 
             user.setUserName(nameField.getText());
             user.setPassword(passwordField.getText());
-            user.setAccountType(AccountType.valueOf(accountTypeField.getValue()));
+            user.setAccountType(AccountType.valueOf(
+                accountTypeField.getValue()));
             Model.getInstance().addUser(user);
 
             registered = true;
@@ -149,9 +150,9 @@ public class UserRegisterController {
      */
     private boolean isInputValid(String name, String password) {
 
-        User tempUser = new User(name, password);
+        User tempUser = new User(name, password, AccountType.ADMIN);
         for (User user : Model.getInstance().getUsers()) {
-            if (user.equalName(tempUser)) {
+            if (user.equalUsername(tempUser)) {
                 return false;
             }
         }

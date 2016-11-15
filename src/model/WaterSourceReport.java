@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * Represents a single water source report in the system
+ * Represents a single water source report in the system.
  *
  * Information Holder
  */
@@ -88,6 +88,9 @@ public class WaterSourceReport extends Report implements Serializable {
         this.locationY = y;
     }
 
+    /**
+     * No arg constructor for gson compatibility.
+     */
     public WaterSourceReport() {
 
     }

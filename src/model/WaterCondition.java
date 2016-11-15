@@ -13,8 +13,12 @@ public enum WaterCondition implements Serializable {
     TREATABLE_MUDDY("Treatable Muddy"),
     POTABLE("Potable");
 
-    private String condition;
+    private final String condition;
 
+    /**
+     * Constructor for this enum.
+     * @param condition the string representing the condition
+     */
     WaterCondition(String condition) {
         this.condition = condition;
     }

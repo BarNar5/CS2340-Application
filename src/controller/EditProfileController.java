@@ -80,8 +80,8 @@ public class EditProfileController {
         for (int i = 0; i < genderValues.length; i++) {
             genders[i + 1] = genderValues[i].toString();
         }
-        ObservableList<String> genderOptions = FXCollections.observableArrayList(
-                genders);
+        ObservableList<String> genderOptions =
+                FXCollections.observableArrayList(genders);
 
         genderField.getItems().addAll(genderOptions);
 
@@ -127,7 +127,8 @@ public class EditProfileController {
         dateDayField.setPromptText("dd");
         dateYearField.setPromptText("yyyy");
 
-        if (user.getDateYear() != null && user.getDateDay() != null && user.getDateMonth() != null) {
+        if (user.getDateYear() != null && user.getDateDay() != null
+                && user.getDateMonth() != null) {
             dateMonthField.setText((user.getDateMonth()));
             dateDayField.setText((user.getDateDay()));
             dateYearField.setText((user.getDateYear()));
@@ -167,22 +168,24 @@ public class EditProfileController {
     @FXML
     private void handleSavePressed() {
         activeUser.setName(nameField.getText());
-        activeUser.setAccountType(AccountType.valueOf(accountTypeField.getValue()));
-        if (genderField.getValue() != null && genderField.getValue() != "") {
+        activeUser.setAccountType(AccountType.
+                valueOf(accountTypeField.getValue()));
+        if (genderField.getValue() != null
+                && !genderField.getValue().equals("")) {
             activeUser.setGender(Gender.valueOf(genderField.getValue()));
         } else {
             activeUser.setGender(null);
         }
-        if (dateMonthField.getText().length() > 0 &&
-                dateDayField.getText().length() > 0 &&
-                dateYearField.getText().length() > 0) {
+        if (dateMonthField.getText().length() > 0
+                && dateDayField.getText().length() > 0
+                && dateYearField.getText().length() > 0) {
             activeUser.setDateMonth(dateMonthField.getText());
             activeUser.setDateDay(dateDayField.getText());
             activeUser.setDateYear(dateYearField.getText());
         }
-        if (dateMonthField.getText().length() == 0 &&
-                dateDayField.getText().length() == 0 &&
-                dateYearField.getText().length() == 0) {
+        if (dateMonthField.getText().length() == 0
+                && dateDayField.getText().length() == 0
+                && dateYearField.getText().length() == 0) {
             activeUser.setDateMonth(null);
             activeUser.setDateDay(null);
             activeUser.setDateYear(null);

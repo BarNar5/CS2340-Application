@@ -36,6 +36,7 @@ public class WaterReportListController {
      */
     @FXML
     private void initialize() {
+        activeUser = new User();
     }
 
     /**
@@ -45,7 +46,8 @@ public class WaterReportListController {
      */
     public void setActiveUser(User user) {
         activeUser = user;
-        reportList.setItems(FXCollections.observableArrayList(activeUser.getWaterReports()));
+        reportList.setItems(FXCollections.
+            observableArrayList(activeUser.getWaterReports()));
     }
 
     /**
