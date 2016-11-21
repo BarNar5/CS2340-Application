@@ -9,7 +9,7 @@ import org.junit.Assert;
 
 public class QualityReportTest {
 
-    Model model = new Model();
+    Model model = Model.getInstance();
 
     @Before
     public void setUp() {
