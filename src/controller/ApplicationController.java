@@ -141,4 +141,9 @@ public class ApplicationController {
     private void handleShowMapPressed() {
         mainApplication.showMapAvailability();
     }
+    
+    @FXML
+    private void handleDeleteUserPressed() {
+    	mainApplication.deleteUser();
+    }
 }

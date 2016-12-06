@@ -97,6 +97,9 @@ public class MainApplication extends Application {
             } else if (activeUser.getAccountType() == AccountType.MANAGER) {
                 loader.setLocation(MainApplication.class.
                     getResource("../view/ApplicationManager.fxml"));
+            } else if (activeUser.getAccountType() == AccountType.ADMIN){
+            	loader.setLocation(MainApplication.class.
+            		getResource("../view/ApplicationAdmin.fxml"));
             } else {
                 loader.setLocation(MainApplication.class.
                     getResource("../view/ApplicationUser.fxml"));
@@ -570,6 +573,30 @@ public class MainApplication extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public void deleteUser() {
+    	try {
+    	 FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(MainApplication.class.
+             getResource("../view/DeleteUser.fxml"));
+         AnchorPane reportListScreen = loader.load();
+
+         WaterReportListController controller = loader.getController();
+         controller.setMainApp(this);
+         controller.setActiveUser(Model.getInstance().getLoggedUser());
+
+         mainScreen.setTitle("Delete User");
+
+         Scene scene = new Scene(reportListScreen);
+         mainScreen.setScene(scene);
+         mainScreen.show();
+         controller.focus();
+
+     } catch (IOException e) {
+         System.out.
+             println("Failed to find the fxml file for WelcomeScreen!!");
+     }
     }
 
     /**
