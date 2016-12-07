@@ -99,6 +99,14 @@ public class UserLoginController {
             loggedIn = true;
             dialogStage.close();
 
+        } else if (isBanned(nameField.getText(), passwordField.getText())) {
+        	Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Login Error");
+            alert.setHeaderText("You have been banned");
+            alert.setContentText("Please contact your system admin");
+
+            alert.showAndWait();
         } else {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -138,5 +146,17 @@ public class UserLoginController {
         }
         return false;
     }
-
+    private boolean isBanned(String name, String password) {
+    	 User tempUser = new User(name, password);
+    	 User lastUser = new User(name, password);
+         for (User user : Model.getInstance().getUsers()) {
+             if (user.equals(tempUser)) {
+                 this.user = user;
+                 Model.getInstance().setLoggedUser(user);
+                 lastUser = user;
+                 return false;
+             } 
+         }
+         return lastUser.getBanned();
+    }
 }

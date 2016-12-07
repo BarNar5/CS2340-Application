@@ -21,7 +21,7 @@
       <Button layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSignOutPressed" text="Sign out" />
       <Button layoutX="62.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleAddWaterReportPressed" prefHeight="26.0" prefWidth="145.0" text="Delete Account" />
       <Button layoutX="223.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleViewQualityReportsPressed" text="Unblock Account" />
-      <Button layoutX="62.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleAddQualityReportPressed" text="Ban User" />
+      <Button layoutX="62.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleBanUserPressed" text="Ban User" />
       <Button layoutX="223.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleViewQualityGraphPressed" prefHeight="26.0" prefWidth="155.0" text="View Security Log" />
    </children>
 </AnchorPane>

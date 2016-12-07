@@ -146,4 +146,9 @@ public class ApplicationController {
     private void handleDeleteUserPressed() {
     	mainApplication.deleteUser();
     }
+    
+    @FXML 
+    private void handleBanUserPressed() {
+    	mainApplication.banUser();
+    }
 }

@@ -23,6 +23,7 @@ public class User implements Serializable {
     private String userName;
     private String password;
     private AccountType accountType;
+    private Boolean banned = false;
     private String name;
     private Gender gender;
     private String dateDay;
@@ -133,6 +134,12 @@ public class User implements Serializable {
         this.accountType = type;
     }
 
+    public Boolean getBanned() {
+    	return banned;
+    }
+    public void setBanned(Boolean ban) {
+    	this.banned = ban;
+    }
     public ObservableList<Report> getWaterReports() {
         return FXCollections.observableArrayList(waterReports);
     }
@@ -184,6 +191,7 @@ public class User implements Serializable {
         }
         User user = (User) that;
         return userName.equals(user.getUserName())
+        	&& banned == false
             && password.equals(user.getPassword());
     }
 

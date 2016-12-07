@@ -598,6 +598,26 @@ public class MainApplication extends Application {
              println("Failed to find the fxml file for WelcomeScreen!!");
      }
     }
+    
+    public void banUser() {
+    	try {
+    	 FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(MainApplication.class.
+             getResource("../view/BanUser.fxml"));
+         AnchorPane banUser = loader.load();
+
+       
+         mainScreen.setTitle("Ban User");
+
+         Scene scene = new Scene(banUser);
+         mainScreen.setScene(scene);
+         mainScreen.show();
+
+     } catch (IOException e) {
+         System.out.
+             println("Failed to find the fxml file for WelcomeScreen!!");
+     }
+    }
 
     /**
      * Main method for application to run.
